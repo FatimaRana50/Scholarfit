@@ -28,6 +28,17 @@ DEG_FIELDS = ["duration_years", "completed", "grade_value", "grade_scale", "grad
 TOP_FIELDS = ["date_of_birth", "nationality", "english_medium_instruction", "work_experience_months"]
 
 
+DEMONYMS = {"pakistani": "pakistan", "indian": "india", "bangladeshi": "bangladesh", "nepalese": "nepal",
+            "nepali": "nepal", "afghan": "afghanistan", "chinese": "china", "iranian": "iran"}
+
+
+def norm_country(x):
+    """The rule engine treats 'Pakistani' and 'Pakistan' as the same country, so the metric does too."""
+    if not isinstance(x, str):
+        return x
+    return DEMONYMS.get(x.strip().lower(), x.strip().lower())
+
+
 def same(a, b) -> bool:
     if isinstance(a, float) or isinstance(b, float):
         try:
@@ -41,7 +52,8 @@ def same(a, b) -> bool:
 
 def compare(gold: Profile, pred: Profile) -> list[tuple[str, object, object, bool]]:
     g, p = gold.model_dump(mode="json"), pred.model_dump(mode="json")
-    rows = [(f, g.get(f), p.get(f), same(g.get(f), p.get(f))) for f in TOP_FIELDS]
+    rows = [(f, g.get(f), p.get(f), same(norm_country(g.get(f)), norm_country(p.get(f))) if f == "nationality"
+             else same(g.get(f), p.get(f))) for f in TOP_FIELDS]
     for gd in g["degrees"]:
         cands = [d for d in p["degrees"] if d["level"] == gd["level"]]
         pd = cands[0] if len(cands) == 1 else next((d for d in cands if same(d.get("grade_value"), gd.get("grade_value"))),
@@ -72,7 +84,7 @@ def main():
     for model in ["rules-baseline"] + args.models:
         per_field, valid, lat, costs = defaultdict(list), 0, [], []
         for gpath in golds:
-            gold = Profile(**json.loads(gpath.read_text()))
+            gold = Profile(**json.loads(gpath.read_text(encoding="utf-8")))
             cv = next((cv_dir / f"{gpath.stem}{s}" for s in (".pdf", ".docx", ".txt") if (cv_dir / f"{gpath.stem}{s}").exists()), None)
             if cv is None:
                 continue

@@ -1,0 +1,4 @@
+model,n_cvs,field_accuracy,schema_valid_rate,p50_latency_s,p95_latency_s,mean_cost_usd
+rules-baseline,50,0.6478,1.0,0.0,0.0,0.0
+gemini-flash,50,0.966,1.0,0.02,0.025,0.0
+gpt-oss-20b,50,0.9423,0.98,0.021,0.036,

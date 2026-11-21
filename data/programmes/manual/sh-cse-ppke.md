@@ -1,0 +1,17 @@
+---
+id: sh-cse-ppke
+family: stipendium_hungaricum
+name: "Stipendium Hungaricum — MSc Computer Science Engineering (PPKE, course 3590)"
+url: "https://apply.stipendiumhungaricum.hu/courses/course/3590-msc-computer-science-engineering"
+snapshot_date: 2026-11-21
+---
+
+# Admission / entrance examination
+- Preliminary studies and documents are evaluated.
+- Online written test on Moodle; subjects: Physics and Electronics, Mathematics, and Computer Science.
+- Applicants with the best online-test results proceed to a video interview. Topics include BSc thesis, knowledge in the selected field (test subjects), professional commitment, language proficiency, and communication skills. A live online interview may also be requested by the Admissions Committee.
+- Final decision considers application materials, online test, interview, fit of applicant goals with the MSc, and ability to follow instructions/deadlines.
+
+# Required video submission
+- Answers to: why PPKE and Computer Science Engineering MSc; relationship of BSc thesis to the MSc; future plans.
+- One video file, .mp4 or .mov, max 3 minutes, HD/720p at 30 fps, max 400 MB; filename family name + first name + MSc programme name. Answer all questions in any order and do not read a prewritten text.

@@ -9,3 +9,5 @@ runs/llm_calls.jsonl
 data/scholarfit.db
 # real CVs never go in the repository
 data/profiles/real/
+
+.venv/

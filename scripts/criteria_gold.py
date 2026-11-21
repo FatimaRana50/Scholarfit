@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -34,7 +35,7 @@ GOLD = ROOT / "data/labels/criteria_gold.jsonl"
 
 
 def load_programmes():
-    return [Programme(**json.loads(l)) for l in (ROOT / "data/programmes/programmes.jsonl").read_text().splitlines() if l.strip()]
+    return [Programme(**json.loads(l)) for l in (ROOT / "data/programmes/programmes.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
 def to_row(pid: str, c: Criterion) -> dict:
@@ -59,7 +60,7 @@ def draft(model: str, limit: int | None):
         w.writeheader()
         w.writerows(rows)
     if not EDITED.exists():
-        EDITED.write_text(DRAFT.read_text())
+        EDITED.write_text(DRAFT.read_text(encoding="utf-8"))
     print(f"draft written to {DRAFT}; annotators edit {EDITED}")
 
 
@@ -75,6 +76,10 @@ def build():
                 if v in ("", "null", None):
                     continue
                 d[k] = json.loads(v) if k in JSON_COLS else v
+            for dk in ("born_on_or_after", "age_reference_date", "deadline"):
+                if dk in d and re.match(r"^\d{1,2}/\d{1,2}/\d{4}$", str(d[dk])):   # Excel turns dates into DD/MM/YYYY
+                    dd, mm, yy = str(d[dk]).split("/")
+                    d[dk] = f"{yy}-{int(mm):02d}-{int(dd):02d}"
             if "final_year_allowed" in d:
                 d["final_year_allowed"] = str(d["final_year_allowed"]).lower() == "true"
             if "english_waiver_medium_of_instruction" in d:

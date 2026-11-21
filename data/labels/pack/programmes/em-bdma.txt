@@ -1,0 +1,23 @@
+Erasmus Mundus Joint Master in Big Data Management and Analytics (BDMA)
+https://bdma.ulb.ac.be/home/students/bdma-expected-profiles-pre-requisites/
+
+BDMA is a multidisciplinary programme that spans concepts from Computer Science, Mathematics and Business Management, as expected from a well-educated big data practitioner / data scientist.
+Accordingly, BDMA accepts students from different backgrounds. Since Big Data / Data Science sits in the confluence of Computer Science and Mathematics, the main recommended entry profiles are:
+- Students with a degree in Computer Science.
+- Students with a degree in Mathematics.
+However, there are several other degrees that would allow to successfully pursue a master’s degree in Data Science. Specifically, any degree that guarantees a solid knowledge about the Computer Science and Mathematical technical competences previously mentioned. For reference, the following degrees typically meet the expected technical competences:
+- Students with a degree in Physics or equivalent.
+- Students with a degree in Statistics or equivalent.
+- Students with a degree in Telecommunication Sciences and Technologies, Telecommunication Technology and Services Engineering, Electronic Telecommunication Engineering or equivalent.
+- Students with a degree in Civil Engineering or equivalent.
+- Students with a degree in Engineering in Industrial Technologies, Industrial Electronics and Automation or equivalent.
+This list by no means is exhaustive. Any other degree meeting the requirements expressed below are also acceptable for BDMA:
+Computer Science:
+- Fundamentals on databases: modeling and theory, database structures (index structures, files, etc.), physical storage (memory hierarchy), relational algebra and SQL.
+- Fundamentals on algorithms: analysis of algorithms (big O notation), simple data structures (stacks, queues, lists, trees, hash tables, etc.), graph structures and algorithms (matrix Vs. lists implementations, applications of BFS and DFS, etc.), algorithm design techniques (greedy, divide and conquer and dynamic programming), traversal and search algorithms.
+Mathematics for Data Analysis:
+- Statistics
+- Linear Algebra
+- Calculus: multiple variables
+The BDMA admission commission will check all CVs and evaluate them. We do not expect all applicants to meet all these requirements but meet some of them or have a solid background to get them before the start of the programme. Thus, if you do not meet all these criteria you are still welcomed to apply.
+All accepted students will duly receive information of the required pre-requisites to be met before starting BDMA. Be sure to be up-to-day before the start date of the master!

@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
 from dataclasses import dataclass, field
 from typing import Callable, Optional, Type, TypeVar
@@ -25,16 +26,44 @@ LOG_FILE = RUNS / "llm_calls.jsonl"
 CACHE_DIR = RUNS / "cache"
 MOCKS: dict[str, Callable[[list[dict]], str]] = {}   # component -> fake response (tests only)
 _last_call: dict[str, float] = {}                      # model -> time of last request (rate limiting)
+_tok_hist: dict[str, list] = {}                        # model -> [(time, tokens)] in the last minute
+_JSON_FALLBACKS: dict[str, int] = {}                   # model -> times JSON mode was dropped after a 400
 
 
-def _throttle(cfg: dict):
-    rpm = cfg.get("rpm") or 0
-    if rpm <= 0 or os.environ.get("SCHOLARFIT_MOCK") == "1":
+def _throttle(cfg: dict, est_tokens: int = 0):
+    """Wait so we stay under the free tier's requests-per-minute AND tokens-per-minute limits."""
+    if os.environ.get("SCHOLARFIT_MOCK") == "1":
         return
-    wait = 60.0 / rpm - (time.time() - _last_call.get(cfg["name"], 0))
-    if wait > 0:
-        time.sleep(wait)
-    _last_call[cfg["name"]] = time.time()
+    name = cfg["name"]
+    rpm = cfg.get("rpm") or 0
+    if rpm > 0:
+        wait = 60.0 / rpm - (time.time() - _last_call.get(name, 0))
+        if wait > 0:
+            time.sleep(wait)
+    tpm = cfg.get("tpm") or 0
+    if tpm > 0 and est_tokens:
+        while True:
+            now = time.time()
+            hist = [(t, n) for t, n in _tok_hist.get(name, []) if now - t < 60]
+            _tok_hist[name] = hist
+            used = sum(n for _, n in hist)
+            if not hist or used + est_tokens <= tpm:
+                break
+            time.sleep(max(1.0, 60 - (now - hist[0][0]) + 0.5))
+    _last_call[name] = time.time()
+
+
+def _record_tokens(cfg: dict, n: int):
+    if cfg.get("tpm"):
+        _tok_hist.setdefault(cfg["name"], []).append((time.time(), n))
+
+
+def _retry_after(r) -> float:
+    try:
+        return float(r.headers.get("retry-after", ""))
+    except ValueError:
+        m = re.search(r"try again in (?:(\d+)m)?([\d.]+)s", r.text)
+        return (int(m.group(1) or 0) * 60 + float(m.group(2))) if m else 0.0
 
 
 @dataclass
@@ -82,25 +111,43 @@ def _raw_call(cfg: dict, messages: list[dict], temperature: float, seed: Optiona
             "messages": [{"role": m["role"], "content": m["content"]} for m in messages]}
     if cfg.get("json_mode", True):
         body["response_format"] = {"type": "json_object"}
-    if cfg.get("reasoning_effort"):
-        body["reasoning_effort"] = cfg["reasoning_effort"]
-    if seed is not None:
+    if seed is not None and cfg.get("supports_seed", True):   # Gemini's OpenAI endpoint rejects "seed"
         body["seed"] = seed
+    body.update(cfg.get("extra_body") or {})          # e.g. reasoning_effort for gpt-oss (same for every system)
     headers = {"Content-Type": "application/json"}
     if cfg.get("api_key"):
         headers["Authorization"] = f"Bearer {cfg['api_key']}"
     url = cfg["base_url"].rstrip("/") + "/chat/completions"
-    for backoff in (0, 5, 15, 30, 60):
+    est = sum(len(m["content"]) for m in messages) // 4 + int(cfg.get("est_output_tokens", 800))
+    for backoff in (0, 5, 15, 30, 60, 60, 60):
         if backoff:
             time.sleep(backoff)
-        _throttle(cfg)
+        _throttle(cfg, est)
         r = requests.post(url, headers=headers, json=body, timeout=180)
-        if r.status_code in (429, 500, 502, 503, 504):
+        if r.status_code == 400 and "json_validate_failed" in r.text and "response_format" in body:
+            # Groq rejects the whole reply when JSON mode output fails its own check (common with
+            # gpt-oss). Same prompt, same settings, JSON mode off; our parser + Pydantic check it instead.
+            body = {k: v for k, v in body.items() if k != "response_format"}
+            _JSON_FALLBACKS[cfg["name"]] = _JSON_FALLBACKS.get(cfg["name"], 0) + 1
+            _record_tokens(cfg, est)
+            _throttle(cfg, est)
+            r = requests.post(url, headers=headers, json=body, timeout=180)
+        if r.status_code == 429:
+            low = r.text.lower()
+            if "per day" in low or "(tpd)" in low or "(rpd)" in low or "resource_exhausted" in low:
+                raise LLMError(f"HTTP 429 daily quota: {r.text[:300]}")   # waiting will not help
+            _record_tokens(cfg, est)
+            time.sleep(_retry_after(r))
+            continue
+        if r.status_code in (500, 502, 503, 504):
             continue
         if r.status_code != 200:
             raise LLMError(f"HTTP {r.status_code}: {r.text[:300]}")
         data = r.json()
-        return data["choices"][0]["message"]["content"], data.get("usage", {})
+        usage = dict(data.get("usage") or {})
+        _record_tokens(cfg, int(usage.get("total_tokens") or est))
+        usage["json_fallback"] = "response_format" not in body and cfg.get("json_mode", True)
+        return data["choices"][0]["message"]["content"], usage
     raise LLMError(f"HTTP {r.status_code} after retries: {r.text[:300]}")
 
 
@@ -119,11 +166,14 @@ def chat_json(messages: list[dict], schema: Type[T], component: str, model: str,
     """Call the model and return a validated Pydantic object plus call metadata."""
     cfg = model_cfg(model)
     meta = CallMeta(component=component, model=model)
-    key_src = json.dumps([cfg["model"], messages, temperature, seed, schema.__name__], sort_keys=True, default=str)
+    key_parts = [cfg["model"], messages, temperature, seed, schema.__name__]
+    if cfg.get("extra_body"):
+        key_parts.append(cfg["extra_body"])          # a different reasoning setting must not reuse old answers
+    key_src = json.dumps(key_parts, sort_keys=True, default=str)
     key = hashlib.sha256(key_src.encode()).hexdigest()
     cache_file = CACHE_DIR / f"{key}.json"
     if use_cache and cache_file.exists():
-        cached = json.loads(cache_file.read_text())
+        cached = json.loads(cache_file.read_text(encoding="utf-8"))
         meta.cached = True
         meta.latency_s, meta.prompt_tokens, meta.completion_tokens = cached["latency_s"], cached["pt"], cached["ct"]
         meta.cost_usd = _cost(cfg, meta.prompt_tokens, meta.completion_tokens)
@@ -145,6 +195,8 @@ def chat_json(messages: list[dict], schema: Type[T], component: str, model: str,
             raise LLMError(str(e)) from e
         meta.prompt_tokens += int(usage.get("prompt_tokens", 0) or 0)
         meta.completion_tokens += int(usage.get("completion_tokens", 0) or 0)
+        if usage.get("json_fallback"):
+            meta.extra["json_fallback"] = True
         try:
             obj = schema.model_validate_json(_extract_json(text))
             break

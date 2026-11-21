@@ -1,0 +1,12 @@
+---
+id: mext-teachers
+family: mext
+name: MEXT Teacher's Training Scholarship 2026
+url: https://www.pk.emb-japan.go.jp/itpr_en/MEXT_Teachers_Training.html
+snapshot_date: 2026-11-21
+---
+# Eligibility criteria
+
+- **Age:** Applicants must be born on or after April 2, 1991.
+- **Qualifications:** Applicants must be graduates of universities or teacher training schools and have worked as teachers at primary/secondary educational institutions or teacher training schools (excluding universities) in their home countries for five years or more in total as of October 1, 2026. In-service university faculty members are not eligible.
+- **Individual Criteria:** Applicants must be intellectually and psychologically capable of spending an eighteen month period in an international atmosphere in a society with a culture very different from that of Pakistan. Applicants must be willing to learn Japanese language and receive research guidance in Japanese, because many universities conduct courses only in Japanese. Japanese language training is provided by the University in Japan beforehand. The courses usually start in October.

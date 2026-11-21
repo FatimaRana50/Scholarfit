@@ -24,7 +24,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 UA = "ScholarFit-research-crawler/0.1 (FAST-NUCES student project; contact in README)"
-DELAY_S = 3.0
+DELAY_S = 10.0
 _robots: dict[str, RobotFileParser] = {}
 
 
@@ -47,7 +47,7 @@ def main():
     ap.add_argument("--snapshot", default=date.today().isoformat())
     args = ap.parse_args()
 
-    cfg = yaml.safe_load((ROOT / "data" / "sources.yaml").read_text())["families"]
+    cfg = yaml.safe_load((ROOT / "data" / "sources.yaml").read_text(encoding="utf-8"))["families"]
     out_dir = ROOT / "data" / "snapshots" / args.snapshot
     out_dir.mkdir(parents=True, exist_ok=True)
     manifest = out_dir / "manifest.jsonl"
@@ -82,7 +82,7 @@ def main():
                 except requests.RequestException as e:
                     rec = {"id": p["id"], "family": fam, "url": url, "status": f"error: {e}"}
                 time.sleep(DELAY_S)
-            with manifest.open("a") as f:
+            with manifest.open("a", encoding="utf-8") as f:
                 f.write(json.dumps(rec) + "\n")
 
 

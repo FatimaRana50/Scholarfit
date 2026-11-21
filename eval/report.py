@@ -50,7 +50,11 @@ def main():
     ap.add_argument("--treatment", default="S2")
     args = ap.parse_args()
     d = ROOT / "runs" / args.name
-    recs = [json.loads(l) for l in (d / "predictions.jsonl").read_text().splitlines() if l.strip()]
+    raw = [json.loads(l) for l in (d / "predictions.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    latest = {}
+    for r in raw:                      # a retried prediction replaces the failed attempt
+        latest[(r["run"], r["model"], r["system"], r["pair_id"])] = r
+    recs = list(latest.values())
 
     groups = defaultdict(lambda: defaultdict(list))      # (system, model) -> run -> records
     for r in recs:
@@ -134,7 +138,7 @@ def main():
     # ---- latency / cost per component from the call log
     log = ROOT / "runs" / "llm_calls.jsonl"
     if log.exists():
-        calls = [json.loads(l) for l in log.read_text().splitlines() if l.strip()]
+        calls = [json.loads(l) for l in log.read_text(encoding="utf-8").splitlines() if l.strip()]
         calls = [c for c in calls if str(c.get("run", "")).startswith(args.name) and not c.get("cached")]
         comp = defaultdict(list)
         for c in calls:

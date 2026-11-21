@@ -1,0 +1,17 @@
+Stipendium Hungaricum — MSc Computer Science (course 2720)
+https://apply.stipendiumhungaricum.hu/courses/course/2720
+
+# Eligibility criteria
+- Bachelor’s studies completed; degree and transcript must show at least 70% overall. If still studying, upload transcript and an official expected-graduation-date certificate. Provisional degree certificates are not accepted.
+- English proof: accepted options listed include IELTS/IELTS Online 5.5, Cambridge B2 First (FCE) 160, TOEFL iBT/Home Edition 72, Trinity ISE II, TOEIC component minimums, Pearson PTE 50, Duolingo English Test 100, or a medium-of-instruction certificate if the entire programme was taught in English. Local school/institution/national certificates are not accepted. MOI certificate cannot be uploaded later; planned language test may be declared at application.
+- Sufficient computer-engineering knowledge demonstrated in an online entrance test; minimum score applies.
+- Motivation letter required.
+
+# Selection / entrance exam
+- Online written/oral computer-engineering test in English. Practice tests available. Applicants select main and secondary specializations during the test.
+- Main specializations: Data Science and Artificial Intelligence; Software Engineering. Secondary: Smart City; Quantum Informatics.
+- English speaking conversation/presentation may be requested; selection considers test, documents, and conversation/presentation.
+- Contact listed: Ms Kati Jármi, International Student Coordinator (CE-EE-faculty@vik.bme.hu).
+
+# Programme overview
+- MSc Computer Science Engineering; 4 semesters, 120 credits. 110 credits are computer engineering/related; includes core/foundation, specialization/project/lab work, thesis design, electives and final exam/thesis defense.
