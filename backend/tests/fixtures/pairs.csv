@@ -1,0 +1,13 @@
+pair_id,split,profile_id,programme_id,family,annotator,overall,label_min_grade
+pair0001,test,syn001,fixture-a,fixture,fixture,NE,NE
+pair0002,test,syn002,fixture-b,fixture,fixture,II,II
+pair0003,test,syn003,fixture-a,fixture,fixture,E,E
+pair0004,test,syn004,fixture-b,fixture,fixture,NE,NE
+pair0005,test,syn005,fixture-a,fixture,fixture,II,II
+pair0006,test,syn006,fixture-b,fixture,fixture,E,E
+pair0007,test,syn007,fixture-a,fixture,fixture,NE,NE
+pair0008,test,syn008,fixture-b,fixture,fixture,II,II
+pair0009,test,syn009,fixture-a,fixture,fixture,E,E
+pair0010,test,syn010,fixture-b,fixture,fixture,NE,NE
+pair0011,test,syn011,fixture-a,fixture,fixture,II,II
+pair0012,test,syn012,fixture-b,fixture,fixture,E,E
