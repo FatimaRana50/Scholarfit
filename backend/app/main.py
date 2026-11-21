@@ -42,10 +42,10 @@ async def profile_extract(file: UploadFile = File(...)):
     data = await file.read()
     if len(data) > MAX_CV_BYTES:
         raise HTTPException(400, "CV larger than 5 MB")
-    with tempfile.NamedTemporaryFile(suffix=suffix, delete=True) as tmp:   # the CV is not kept on disk
-        tmp.write(data)
-        tmp.flush()
-        text = read_cv_text(tmp.name)
+    with tempfile.TemporaryDirectory() as tmpdir:   # the CV is not kept on disk
+        path = Path(tmpdir) / f"cv{suffix}"          # closed before reading: Windows cannot reopen an open temp file
+        path.write_bytes(data)
+        text = read_cv_text(str(path))
     try:
         prof, _ = extract_profile_llm(text, default_model(), run_tag="app")
     except LLMError as e:
@@ -81,7 +81,8 @@ def check(req: CheckRequest):
             continue
         crits = store.get_criteria(pid, include_pending=False)
         judge = make_judge(model, today, 0.0, None, True, "app", [])
-        res = evaluate(pid, crits, req.profile, semantic_judge=judge, today=today, system="S2")
+        res = evaluate(pid, crits, req.profile, semantic_judge=judge, today=today, system="S2",
+                       skip_judge_if_failed=True)
         deadline = next((c.deadline for c in prog.criteria if c.type == CriterionType.DEADLINE and c.deadline), None)
         row = {**res.model_dump(mode="json"), "name": prog.name, "family": prog.family, "url": prog.url,
                "snapshot_date": str(prog.snapshot_date or ""), "deadline": str(deadline) if deadline else None}
