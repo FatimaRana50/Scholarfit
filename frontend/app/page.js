@@ -121,12 +121,22 @@ export default function Home() {
   }
 
   async function check() {
-    setBusy("Checking every programme..."); setError("");
-    const res = await fetch(`${API}/api/check`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profile }) });
-    const data = await res.json();
+    setBusy("Checking every programme..."); setError(""); setResults([]);
+    let ids;
+    try { ids = (await (await fetch(`${API}/api/programmes`)).json()).map(p => p.programme_id); }
+    catch (e) { setBusy(""); return setError("Could not reach the server"); }
+    const order = { eligible: 0, insufficient_info: 1, not_eligible: 2 };
+    const sorted = rows => [...rows].sort((a, b) => (order[a.overall] ?? 3) - (order[b.overall] ?? 3) || a.name.localeCompare(b.name));
+    let rows = [];
+    // one programme per request: results appear as they arrive and the page shows progress
+    for (let i = 0; i < ids.length; i++) {
+      setBusy(`Checked ${i} of ${ids.length} programmes... (the first check of a new CV takes a few minutes)`);
+      const res = await fetch(`${API}/api/check`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profile, programme_ids: [ids[i]] }) });
+      const data = await res.json();
+      if (!res.ok) { setBusy(""); return setError(data.detail || "Check failed"); }
+      rows = sorted([...rows, ...data]); setResults(rows);
+    }
     setBusy("");
-    if (!res.ok) return setError(data.detail || "Check failed");
-    setResults(data);
   }
 
   const counts = results ? results.reduce((a, r) => ({ ...a, [r.overall]: (a[r.overall] || 0) + 1 }), {}) : {};
