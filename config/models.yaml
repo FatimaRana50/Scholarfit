@@ -1,0 +1,50 @@
+# Every model is reached through an OpenAI-compatible /chat/completions endpoint.
+# FREE SETUP used for Assignment 3 (no credit card):
+#   API model   -> gemini-flash  (Google AI Studio free tier key)  - the "foundation model API"
+#   open model  -> gpt-oss-20b   (open-weight model served free by Groq) - the "open-source model"
+# A teammate with a GPU can use qwen-local through Ollama instead of Groq.
+#
+# rpm = max requests per minute; the client waits between calls so free tiers do not refuse them.
+# Prices are USD per 1M tokens. Free tiers cost 0; the paid-tier price is kept separately so the
+# business section can quote what the same usage WOULD cost at scale (fill from the pricing pages).
+models:
+  gemini-flash:
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    model: gemini-3.5-flash-lite        # check AI Studio for the current free Flash / Flash-Lite name
+    api_key_env: GEMINI_API_KEY
+    rpm: 8
+    price_in_per_m: 0
+    price_out_per_m: 0
+    paid_price_in_per_m: null
+    paid_price_out_per_m: null
+    json_mode: true
+
+  gpt-oss-20b:
+    base_url: https://api.groq.com/openai/v1
+    model: openai/gpt-oss-20b
+    api_key_env: GROQ_API_KEY
+    rpm: 25
+    reasoning_effort: low            # default effort returns an empty answer in JSON mode on long prompts
+    price_in_per_m: 0
+    price_out_per_m: 0
+    paid_price_in_per_m: null
+    paid_price_out_per_m: null
+    json_mode: true
+
+  qwen-local:
+    base_url: http://localhost:11434/v1   # Ollama; ollama pull qwen2.5:7b-instruct (needs a GPU to be usable)
+    model: qwen2.5:7b-instruct
+    api_key_env: null
+    rpm: 0
+    price_in_per_m: 0
+    price_out_per_m: 0
+    json_mode: true
+
+  gpt-4o-mini:                             # paid, optional
+    base_url: https://api.openai.com/v1
+    model: gpt-4o-mini
+    api_key_env: OPENAI_API_KEY
+    rpm: 0
+    price_in_per_m: null
+    price_out_per_m: null
+    json_mode: true
