@@ -7,7 +7,7 @@
  ],
  "models": [
   "gpt-oss-20b",
-  "gemini-flash"
+  "gemini-flash-lite"
  ],
  "runs": 1,
  "split": "test",
@@ -22,7 +22,7 @@
  "programmes": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\programmes\\programmes.jsonl",
  "profiles": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\profiles\\synthetic",
  "gold_criteria": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\labels\\criteria_gold.jsonl",
- "git_commit": "no-git",
- "started": "Sun Nov 22 00:38:29 2026",
+ "git_commit": "2e669a4",
+ "started": "Sun Nov 22 02:51:23 2026",
  "n_pairs": 109
 }

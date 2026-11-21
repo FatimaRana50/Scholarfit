@@ -20,6 +20,18 @@ models:
     paid_price_out_per_m: null
     json_mode: true
 
+  gemini-flash-lite:                 # the API model for the A3 experiment (free tier allows far more requests/day than Flash)
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    model: gemini-3.5-flash-lite     # if AI Studio says unavailable, use gemini-3.1-flash-lite
+    api_key_env: GEMINI_API_KEY
+    rpm: 10
+    supports_seed: false
+    price_in_per_m: 0
+    price_out_per_m: 0
+    paid_price_in_per_m: null
+    paid_price_out_per_m: null
+    json_mode: true
+
   gpt-oss-20b:
     base_url: https://api.groq.com/openai/v1
     model: openai/gpt-oss-20b
