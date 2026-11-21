@@ -192,19 +192,30 @@ def combine(verdicts: list[CriterionVerdict]) -> Label:
     return Label.ELIGIBLE
 
 
+def _needs_judge(c: Criterion) -> bool:
+    return c.handling != Handling.MANUAL and (
+        c.handling == Handling.SEMANTIC or c.type in (CriterionType.DEGREE_FIELD, CriterionType.OTHER))
+
+
 def evaluate(programme_id: str, criteria: list[Criterion], profile: Profile,
              semantic_judge: Optional[SemanticJudge] = None, today: Optional[date] = None,
-             system: str = "S2") -> EligibilityResult:
+             system: str = "S2", skip_judge_if_failed: bool = False) -> EligibilityResult:
+    """skip_judge_if_failed: once a rule-based criterion is NOT_ELIGIBLE the overall verdict cannot
+    change, so the (slow, paid) semantic judge is not called for the remaining criteria. Off by default
+    so experiments judge every criterion."""
     deadline = next((c.deadline for c in criteria if c.type == CriterionType.DEADLINE and c.deadline), None)
-    out: list[CriterionVerdict] = []
-    for c in criteria:
+    done: dict[int, CriterionVerdict] = {}
+    # rule-based criteria first (stable sort), so a failure is known before any judge call
+    for idx, c in sorted(enumerate(criteria), key=lambda t: _needs_judge(t[1])):
         if c.type == CriterionType.DEADLINE:
             continue
         rule = None
         if c.handling == Handling.MANUAL:
             label, reason = Label.MANUAL, "Checked by a person (selection stage or not verifiable from a CV)."
-        elif c.handling == Handling.SEMANTIC or c.type in (CriterionType.DEGREE_FIELD, CriterionType.OTHER):
-            if semantic_judge is None:
+        elif _needs_judge(c):
+            if skip_judge_if_failed and any(v.label == Label.NOT_ELIGIBLE for v in done.values()):
+                label, reason, rule = Label.INSUFFICIENT, "Not checked: another requirement is already not met.", "skipped"
+            elif semantic_judge is None:
                 label, reason = Label.INSUFFICIENT, "Needs a semantic judgement; no judge configured."
             else:
                 label, reason = semantic_judge(c, profile)
@@ -227,8 +238,9 @@ def evaluate(programme_id: str, criteria: list[Criterion], profile: Profile,
             label, reason, rule = _work(c, profile)
         else:
             label, reason = Label.INSUFFICIENT, "Unsupported criterion type."
-        out.append(CriterionVerdict(criterion_id=c.criterion_id, type=c.type, label=label,
-                                    reason=reason, rule_used=rule, citation=c.source_quote))
+        done[idx] = CriterionVerdict(criterion_id=c.criterion_id, type=c.type, label=label,
+                                     reason=reason, rule_used=rule, citation=c.source_quote)
+    out = [done[i] for i in sorted(done)]
     today = today or date.today()
     return EligibilityResult(programme_id=programme_id, profile_id=profile.profile_id, system=system,
                              overall=combine(out), criteria=out,
