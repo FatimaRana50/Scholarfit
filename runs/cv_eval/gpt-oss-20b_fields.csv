@@ -1,0 +1,14 @@
+field,accuracy,n
+completed,0.9043,115
+date_of_birth,0.98,50
+duration_years,0.9826,115
+english_medium_instruction,0.98,50
+grade_scale,0.9652,115
+grade_scale_max,0.9826,115
+grade_scale_min_pass,1,115
+grade_value,0.9826,115
+min_band,0.2903,31
+nationality,0.96,50
+none,1,19
+overall,0.9677,31
+work_experience_months,0.84,50

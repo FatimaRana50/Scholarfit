@@ -11,7 +11,7 @@ from datetime import date
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 
 # --------------------------------------------------------------------------- labels
@@ -159,11 +159,6 @@ class Criterion(BaseModel):
     # nationality
     nationalities_allowed: list[str] = Field(default_factory=list)
     nationalities_excluded: list[str] = Field(default_factory=list)
-
-    @field_validator("thresholds", "fields", "nationalities_allowed", "nationalities_excluded", mode="before")
-    @classmethod
-    def _null_list_is_empty(cls, v):
-        return [] if v is None else v   # models sometimes return null for "none listed"
 
     # english_test
     english_min_scores: dict[str, float] = Field(default_factory=dict)   # {"IELTS": 6.5}

@@ -1,0 +1,18 @@
+---
+id: sh-cse-budapest
+family: stipendium_hungaricum
+name: "Stipendium Hungaricum — MSc Computer Science Engineering (course 3262, Budapest)"
+url: "https://apply.stipendiumhungaricum.hu/courses/course/3262-msc-computer-science-engineering"
+snapshot_date: 2026-11-21
+---
+
+# Eligibility criteria
+- Completed Bachelor’s degree with overall result of at least 70%; degree and transcript required. Applicants still completing the BSc submit transcript plus official expected graduation date certificate. Provisional degree certificate is not accepted.
+- English proof options include IELTS/IELTS Online 5.5, Cambridge B2 First 160, TOEFL iBT/Home Edition 72, Trinity ISE II, TOEIC Listening 400/Reading 385/Speaking 160/Writing 150, Pearson PTE 50, Duolingo 100, or MOI certificate if the full degree was in English. Local school certificates are not accepted.
+- Computer engineering knowledge assessed through online entrance test; minimum score applies.
+- Motivation letter and supporting Bachelor documents required.
+
+# Selection / examination
+- Written/oral online computer-engineering exam in English; practice tests are available.
+- Applicants select main and secondary specializations during the test. Main: Data Science and Artificial Intelligence; Software Engineering. Secondary: Smart City; Quantum Informatics.
+- English conversation/presentation may be requested. Selection considers exam, documents and possible conversation/presentation.

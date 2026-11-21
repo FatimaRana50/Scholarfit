@@ -10,9 +10,10 @@
 models:
   gemini-flash:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai
-    model: gemini-3.5-flash-lite        # check AI Studio for the current free Flash / Flash-Lite name
+    model: gemini-3.8-flash          # check AI Studio for the current free Flash / Flash-Lite name
     api_key_env: GEMINI_API_KEY
     rpm: 8
+    supports_seed: false             # Gemini's OpenAI-compatible endpoint rejects the "seed" field
     price_in_per_m: 0
     price_out_per_m: 0
     paid_price_in_per_m: null
@@ -24,7 +25,10 @@ models:
     model: openai/gpt-oss-20b
     api_key_env: GROQ_API_KEY
     rpm: 25
-    reasoning_effort: low            # default effort returns an empty answer in JSON mode on long prompts
+    tpm: 7000                        # free tier: 8K tokens/min, 200K tokens/day per Groq account
+    est_output_tokens: 800
+    extra_body:
+      reasoning_effort: low          # fewer hidden reasoning tokens -> fits the free token budget
     price_in_per_m: 0
     price_out_per_m: 0
     paid_price_in_per_m: null

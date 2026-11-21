@@ -19,14 +19,15 @@ def _load_dotenv():
     path = ROOT / ".env"
     if not path.exists():
         return
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding="utf-8-sig").splitlines():   # utf-8-sig: ignores a Windows BOM
         line = line.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, val = line.split("=", 1)
         val = val.split(" #", 1)[0].strip().strip('"').strip("'")
-        if val:
-            os.environ.setdefault(key.strip(), val)
+        key = key.strip()
+        if val and not os.environ.get(key):        # also fills a variable that exists but is empty
+            os.environ[key] = val
 
 
 _load_dotenv()

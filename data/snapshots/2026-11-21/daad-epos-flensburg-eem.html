@@ -1,0 +1,145 @@
+<!DOCTYPE html><html dir="ltr" lang="de"><head>
+    <meta charset="utf-8">
+
+    <title>404 - not found - Europa-Universität Flensburg</title>
+
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="/_assets/1aa886748c78ee4af350e9ea89f96bc8/Build/Euf/Concat.min.1794920976900.css" media="all">
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        /*_scriptCode*/
+
+        // decrypt helper function
+        function decryptCharcode(n, start, end, offset) {
+            n = n + offset;
+            if (offset > 0 && n > end) {
+                n = start + (n - end - 1);
+            } else if (offset < 0 && n < start) {
+                n = end - (start - n - 1);
+            }
+            return String.fromCharCode(n);
+        }
+
+        // decrypt string
+        function decryptString(enc, offset) {
+            var dec = "";
+            var len = enc.length;
+            for (var i = 0; i < len; i++) {
+                var n = enc.charCodeAt(i);
+                if (n >= 0x2B && n <= 0x3A) {
+                    dec += decryptCharcode(n, 0x2B, 0x3A, offset); // 0-9 . , - + / :
+                } else if (n >= 0x40 && n <= 0x5A) {
+                    dec += decryptCharcode(n, 0x40, 0x5A, offset); // A-Z @
+                } else if (n >= 0x61 && n <= 0x7A) {
+                    dec += decryptCharcode(n, 0x61, 0x7A, offset); // a-z
+                } else {
+                    dec += enc.charAt(i);
+                }
+            }
+            return dec;
+        }
+
+        // decrypt spam-protected emails
+        function linkTo_UnCryptMailto(s) {
+            location.href = decryptString(s, -1);
+        }
+
+        /*]]>*/
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="//cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    </head>
+
+<body>
+
+<div id="my-page">
+    <div class="header" id="my-header">
+        <nav class="navbar navbar-quick d-none d-md-block navbar-expand-md bg-primary">
+            <div class="container">
+                <div class="slogan left">
+                    <img alt="moin." src="/_assets/1aa886748c78ee4af350e9ea89f96bc8/Images/slogan-moin.svg">
+                </div>
+            </div>
+        </nav>
+
+        <nav class="navbar navbar-custom navbar-expand-md bg-white">
+            <div class="container">
+                <a class="navbar-brand" href="/" title="Zurück zur Homepage | Back to homepage">
+                    <img alt="" src="/_assets/1aa886748c78ee4af350e9ea89f96bc8/Images/logo-euf.svg">
+                </a>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="main" id="my-content">
+        <div class="content-main">
+            <div class="container">
+                <div id="c301" class="frame frame-default frame-type-tx_microportals_sel_pg frame-layout-0">
+                    <header>
+                        <h1 class="">
+                            404 - Die Seite wurde nicht gefunden | Page not found                        </h1>
+                    </header>
+                    <div class="clearfix tx-intdiv-textpic tx-intdiv-textpic-text-only">
+                        <div class="tx-intdiv-textmedia-bodytext">
+                            
+<div style="float: left;" class="col-lg-6">
+  <img src="/fileadmin/content/system/error/euf/images/fehlerseite-404-nicht-gefunden-klein.png" class="img-fluid embed-responsive-item" title="Die gesuchte Seite wurde nicht gefunden" alt="Student schaut verblüfft von seinem Handy auf">
+</div>
+<div style="float: left;" class="embed-responsive-item col-lg-6">
+  <p>Leider wurde die gewünschte Seite nicht gefunden. Entweder haben wir die Seite zwischenzeitlich entfernt oder Sie haben sich eventuell vertippt.</p>
+
+  <p><a class="inline-text-link page-unrestricted" title="Schritt zurück" href="javascript:history.go(-1);">Einen Schritt zurück</a> oder <a class="inline-text-link page-unrestricted" href="https://www.uni-flensburg.de" title="Homepage der Universität aufrufen">Zurück zur Startseite der Universität</a> gehen.</p>
+
+  <h2>Interesse an einem Studium? 🗺️🧑‍🎓</h2>
+
+  <p>An der Europa-Universität Flensburg kannst du aus vielen interessanten Studiengängen auswählen. Bei uns gehts um Bildung, Wirtschaft, Nachhaltigkeit und Europa.</p>
+
+  <p><a class="btn btn-secondary page-unrestricted inline-icon far-angle-right" href="https://www.uni-flensburg.de?40074" title="Guide für Studieninteressierte aufrufen">Unser Guide für Studieninteressierte</a></p>
+</div>                                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer py-5 bg-primary" id="my-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 order-lg-0">
+                    <div class="copyright">
+                        <p>© 2026 Europa-Universität Flensburg (EUF)</p>
+                    </div>
+
+                    <div class="footer-address">
+                        <address>
+                            <p>
+                                Europa-Universität Flensburg<br>
+                                Auf dem Campus 1<br>
+                                24943 Flensburg
+                            </p>
+                            <p>
+                                Telefon: +49 461 805 02<br>
+                                Telefax: +49 461 805 2144
+                            </p>
+                            <p>
+                                Internet: <a href="https://www.uni-flensburg.de" target="_self">www.uni-flensburg.de</a>
+                            </p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/_assets/1aa886748c78ee4af350e9ea89f96bc8/Build/Concat.min.1794920976900.js" type="text/javascript"></script>
+
+
+</div></body></html>

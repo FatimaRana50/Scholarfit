@@ -43,6 +43,7 @@ def main():
     ap.add_argument("--oracle", action="store_true", help="also run S2 on gold criteria (S2-oracle)")
     ap.add_argument("--today", default=None, help="reference date for 'today' (default: programme snapshot date)")
     ap.add_argument("--no-cache", action="store_true")
+    ap.add_argument("--stop-on-quota", type=int, default=5, help="stop after this many quota errors in a row")
     ap.add_argument("--pairs", default=str(ROOT / "data/labels/pairs.csv"))
     ap.add_argument("--programmes", default=str(ROOT / "data/programmes/programmes.jsonl"))
     ap.add_argument("--profiles", default=str(ROOT / "data/profiles/synthetic"))
@@ -59,13 +60,15 @@ def main():
     pred_file = out_dir / "predictions.jsonl"
     done = set()
     if pred_file.exists():   # resume an interrupted experiment
-        for line in pred_file.read_text().splitlines():
+        for line in pred_file.read_text(encoding="utf-8").splitlines():
             r = json.loads(line)
-            done.add((r["run"], r["model"], r["system"], r["pair_id"]))
+            if not r.get("error"):          # failed calls (e.g. daily quota) are retried on the next run
+                done.add((r["run"], r["model"], r["system"], r["pair_id"]))
 
     systems = list(args.systems) + (["S2-oracle"] if args.oracle else [])
     total = args.runs * len(args.models) * len(systems) * len(pairs)
     k = 0
+    quota_hits = 0
     with pred_file.open("a") as f:
         for run in range(args.runs):
             for model in args.models:
@@ -100,6 +103,13 @@ def main():
                                "latency_s": res.latency_s, "cost_usd": res.cost_usd, "error": res.error}
                         f.write(json.dumps(rec) + "\n")
                         f.flush()
+                        if res.error and ("429" in res.error or "quota" in res.error.lower() or "RESOURCE_EXHAUSTED" in res.error):
+                            quota_hits += 1
+                            if quota_hits >= args.stop_on_quota:
+                                raise SystemExit("Stopped: daily quota reached for " + model +
+                                                 ". Switch the key in .env (or wait) and run the SAME command again: it resumes.")
+                        else:
+                            quota_hits = 0
                         print(f"[{k}/{total}] run{run} {model} {sysname} {pr['pair_id']}: "
                               f"gold={rec['gold']} pred={rec['pred']}" + (f" ERROR {res.error}" if res.error else ""))
     print(f"done -> {pred_file}\nnext: python eval/report.py --name {args.name}")
