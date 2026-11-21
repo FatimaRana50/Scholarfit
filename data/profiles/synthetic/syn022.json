@@ -1,0 +1,38 @@
+{
+ "profile_id": "syn022",
+ "date_of_birth": "2001-06-20",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Mathematics",
+   "field": "Mathematics",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.92,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 1.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 6.5,
+   "min_band": 5.5
+  }
+ ],
+ "work_experience_months": 24,
+ "interests": [
+  "distributed systems",
+  "cybersecurity"
+ ]
+}

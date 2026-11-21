@@ -1,0 +1,53 @@
+{
+ "profile_id": "syn033",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 64.1,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "University of the Punjab",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 56.5,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 40.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Computer Science",
+   "field": "Computer Science",
+   "institution": "LUMS",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 3.82,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "TOEFL_iBT",
+   "overall": 87.0
+  }
+ ],
+ "english_medium_instruction": true,
+ "work_experience_months": 0,
+ "interests": [
+  "human-computer interaction",
+  "data engineering"
+ ]
+}

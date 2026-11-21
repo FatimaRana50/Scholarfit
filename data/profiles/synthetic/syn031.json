@@ -1,0 +1,38 @@
+{
+ "profile_id": "syn031",
+ "date_of_birth": "1997-05-08",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BS English",
+   "field": "English Literature",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.28,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 6.5,
+   "min_band": 5.5
+  }
+ ],
+ "english_medium_instruction": true,
+ "work_experience_months": 2,
+ "interests": [
+  "public policy",
+  "data engineering"
+ ]
+}

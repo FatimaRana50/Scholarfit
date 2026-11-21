@@ -1,0 +1,46 @@
+{
+ "profile_id": "syn036",
+ "date_of_birth": "2000-01-13",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 58.4,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BBA (Hons)",
+   "field": "Business Administration",
+   "institution": "COMSATS University Islamabad",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.52,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  },
+  {
+   "level": "master",
+   "title": "MS Artificial Intelligence",
+   "field": "Artificial Intelligence",
+   "institution": "University of the Punjab",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 3.77,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [],
+ "work_experience_months": 36,
+ "interests": [
+  "renewable energy",
+  "cybersecurity"
+ ]
+}

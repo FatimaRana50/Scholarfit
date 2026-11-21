@@ -1,0 +1,39 @@
+{
+ "profile_id": "syn002",
+ "date_of_birth": "2000-02-19",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 59.4,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS English",
+   "field": "English Literature",
+   "institution": "NUST Islamabad",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.56,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "TOEFL_iBT",
+   "overall": 108.0
+  }
+ ],
+ "work_experience_months": 42,
+ "interests": [
+  "renewable energy",
+  "robotics"
+ ]
+}

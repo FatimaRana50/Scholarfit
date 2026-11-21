@@ -1,0 +1,41 @@
+{
+ "profile_id": "syn006",
+ "date_of_birth": "1996-09-07",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 70.1,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS English",
+   "field": "English Literature",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.15,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 8.0,
+   "min_band": 7.0
+  }
+ ],
+ "work_experience_months": 6,
+ "interests": [
+  "cybersecurity",
+  "robotics"
+ ]
+}

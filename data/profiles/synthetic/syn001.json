@@ -1,0 +1,40 @@
+{
+ "profile_id": "syn001",
+ "date_of_birth": "1990-01-31",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 53.3,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Computer Science",
+   "field": "Computer Science",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.62,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.5,
+   "min_band": 6.5
+  }
+ ],
+ "work_experience_months": 32,
+ "interests": [
+  "natural language processing",
+  "finance"
+ ]
+}

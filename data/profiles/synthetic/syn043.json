@@ -1,0 +1,53 @@
+{
+ "profile_id": "syn043",
+ "date_of_birth": "1991-12-23",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 59.9,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Data Science",
+   "field": "Data Science",
+   "institution": "Quaid-i-Azam University",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.83,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  },
+  {
+   "level": "master",
+   "title": "MS Artificial Intelligence",
+   "field": "Artificial Intelligence",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 3.55,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 1.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "TOEFL_iBT",
+   "overall": 93.0
+  }
+ ],
+ "work_experience_months": 0,
+ "interests": [
+  "robotics",
+  "machine learning"
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "profile_id": "syn050",
+ "date_of_birth": "1995-08-09",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 60.2,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "COMSATS University Islamabad",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 76.1,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 40.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Physics",
+   "field": "Physics",
+   "institution": "Quaid-i-Azam University",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 77.4,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 40.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 6.5,
+   "min_band": 6.5
+  }
+ ],
+ "work_experience_months": 0,
+ "interests": [
+  "public policy",
+  "data engineering"
+ ]
+}

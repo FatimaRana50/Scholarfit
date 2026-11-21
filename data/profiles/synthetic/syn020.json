@@ -1,0 +1,34 @@
+{
+ "profile_id": "syn020",
+ "date_of_birth": "1990-01-31",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 60.1,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Data Science",
+   "field": "Data Science",
+   "institution": "Quaid-i-Azam University",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.53,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [],
+ "work_experience_months": 0,
+ "interests": [
+  "public policy",
+  "robotics"
+ ]
+}

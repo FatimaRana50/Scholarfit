@@ -1,0 +1,39 @@
+{
+ "profile_id": "syn035",
+ "date_of_birth": "2002-11-16",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Data Science",
+   "field": "Data Science",
+   "institution": "NED University Karachi",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": false,
+   "expected_completion": "2026-06-30",
+   "grade_value": 2.95,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "TOEFL_iBT",
+   "overall": 77.0
+  }
+ ],
+ "english_medium_instruction": true,
+ "work_experience_months": 0,
+ "interests": [
+  "data engineering",
+  "renewable energy"
+ ]
+}

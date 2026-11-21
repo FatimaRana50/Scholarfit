@@ -1,0 +1,43 @@
+{
+ "profile_id": "syn010",
+ "date_of_birth": "1990-06-04",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 67.2,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Physics",
+   "field": "Physics",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 2.63,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [],
+ "work_experience_months": 30,
+ "interests": [
+  "natural language processing",
+  "robotics"
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "profile_id": "syn037",
+ "date_of_birth": "1992-10-14",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 83.2,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BBA (Hons)",
+   "field": "Business Administration",
+   "institution": "NUST Islamabad",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.22,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.5,
+   "min_band": 7.5
+  }
+ ],
+ "work_experience_months": 6,
+ "interests": [
+  "natural language processing",
+  "human-computer interaction"
+ ]
+}

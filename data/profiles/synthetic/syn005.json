@@ -1,0 +1,41 @@
+{
+ "profile_id": "syn005",
+ "date_of_birth": "1991-04-29",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 54.2,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Computer Science",
+   "field": "Computer Science",
+   "institution": "Bahria University",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": false,
+   "expected_completion": "2026-06-30",
+   "grade_value": 2.38,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 5.5,
+   "min_band": 4.5
+  }
+ ],
+ "work_experience_months": 24,
+ "interests": [
+  "finance",
+  "data engineering"
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "profile_id": "syn011",
+ "date_of_birth": "1992-06-19",
+ "nationality": "Nepal",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "LUMS",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 58.3,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 33.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Physics",
+   "field": "Physics",
+   "institution": "COMSATS University Islamabad",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 75.4,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 33.0
+  }
+ ],
+ "english_tests": [],
+ "work_experience_months": 36,
+ "interests": [
+  "data engineering",
+  "renewable energy"
+ ]
+}

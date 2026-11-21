@@ -1,0 +1,51 @@
+{
+ "profile_id": "syn048",
+ "date_of_birth": "1998-03-08",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 50.4,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "NUST Islamabad",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 84.5,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Computer Science",
+   "field": "Computer Science",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 58.3,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "TOEFL_iBT",
+   "overall": 81.0
+  }
+ ],
+ "work_experience_months": 36,
+ "interests": [
+  "human-computer interaction",
+  "cybersecurity"
+ ]
+}

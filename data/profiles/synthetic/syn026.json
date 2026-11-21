@@ -1,0 +1,41 @@
+{
+ "profile_id": "syn026",
+ "date_of_birth": "1992-09-18",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 77.6,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Data Science",
+   "field": "Data Science",
+   "institution": "FAST-NUCES Islamabad",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.97,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 5.5,
+   "min_band": 4.5
+  }
+ ],
+ "work_experience_months": 12,
+ "interests": [
+  "distributed systems",
+  "robotics"
+ ]
+}

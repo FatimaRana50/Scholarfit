@@ -1,0 +1,49 @@
+{
+ "profile_id": "syn041",
+ "date_of_birth": "2000-09-26",
+ "nationality": "Bangladesh",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 56.5,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "COMSATS University Islamabad",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 82.0,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 33.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Mathematics",
+   "field": "Mathematics",
+   "institution": "Quaid-i-Azam University",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 2.54,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [],
+ "english_medium_instruction": true,
+ "work_experience_months": 17,
+ "interests": [
+  "cybersecurity",
+  "robotics"
+ ]
+}

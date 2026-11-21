@@ -1,0 +1,53 @@
+{
+ "profile_id": "syn018",
+ "date_of_birth": "1991-03-27",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 67.7,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 87.7,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Computer Science",
+   "field": "Computer Science",
+   "institution": "NED University Karachi",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 53.3,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.0,
+   "min_band": 6.0
+  }
+ ],
+ "english_medium_instruction": true,
+ "work_experience_months": 2,
+ "interests": [
+  "renewable energy",
+  "distributed systems"
+ ]
+}

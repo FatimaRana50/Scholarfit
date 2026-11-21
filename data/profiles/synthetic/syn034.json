@@ -1,0 +1,49 @@
+{
+ "profile_id": "syn034",
+ "date_of_birth": "2002-10-15",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Software Engineering",
+   "field": "Software Engineering",
+   "institution": "NUST Islamabad",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.87,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  },
+  {
+   "level": "master",
+   "title": "MS Data Science",
+   "field": "Data Science",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 2.63,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.5,
+   "min_band": 6.5
+  }
+ ],
+ "work_experience_months": 42,
+ "interests": [
+  "robotics",
+  "data engineering"
+ ]
+}

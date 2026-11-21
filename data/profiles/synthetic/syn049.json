@@ -1,0 +1,32 @@
+{
+ "profile_id": "syn049",
+ "date_of_birth": "1989-04-20",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BE Electrical Engineering",
+   "field": "Electrical Engineering",
+   "institution": "LUMS",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.59,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 1.0
+  }
+ ],
+ "english_tests": [],
+ "work_experience_months": 12,
+ "interests": [
+  "computer vision",
+  "public policy"
+ ]
+}

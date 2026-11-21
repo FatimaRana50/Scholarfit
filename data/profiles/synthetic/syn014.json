@@ -1,0 +1,40 @@
+{
+ "profile_id": "syn014",
+ "date_of_birth": "2003-08-01",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 58.2,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Data Science",
+   "field": "Data Science",
+   "institution": "COMSATS University Islamabad",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 2.55,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 6.5,
+   "min_band": 5.5
+  }
+ ],
+ "work_experience_months": 14,
+ "interests": [
+  "renewable energy",
+  "distributed systems"
+ ]
+}

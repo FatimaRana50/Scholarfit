@@ -1,0 +1,37 @@
+{
+ "profile_id": "syn008",
+ "date_of_birth": "1989-08-14",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BE Mechanical Engineering",
+   "field": "Mechanical Engineering",
+   "institution": "Quaid-i-Azam University",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.35,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.5,
+   "min_band": 6.5
+  }
+ ],
+ "work_experience_months": 12,
+ "interests": [
+  "cybersecurity",
+  "machine learning"
+ ]
+}

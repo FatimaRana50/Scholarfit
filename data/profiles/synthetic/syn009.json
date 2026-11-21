@@ -1,0 +1,39 @@
+{
+ "profile_id": "syn009",
+ "date_of_birth": "1990-05-14",
+ "nationality": "Bangladesh",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BE Electrical Engineering",
+   "field": "Electrical Engineering",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.13,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 1.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.0,
+   "min_band": 6.0
+  }
+ ],
+ "english_medium_instruction": true,
+ "work_experience_months": 38,
+ "interests": [
+  "natural language processing",
+  "renewable energy"
+ ]
+}

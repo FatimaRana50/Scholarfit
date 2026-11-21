@@ -1,0 +1,32 @@
+{
+ "profile_id": "syn027",
+ "date_of_birth": "1999-08-24",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "A-Levels",
+   "duration_years": 2.0,
+   "completed": true
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Physics",
+   "field": "Physics",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.81,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [],
+ "work_experience_months": 24,
+ "interests": [
+  "data engineering",
+  "distributed systems"
+ ]
+}

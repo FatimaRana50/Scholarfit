@@ -1,0 +1,55 @@
+{
+ "profile_id": "syn046",
+ "date_of_birth": "1999-05-13",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 76.7,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "B.Sc. (Physics, Mathematics)",
+   "field": "Physics and Mathematics",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 55.9,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 33.0
+  },
+  {
+   "level": "master",
+   "title": "M.Sc. Mathematics",
+   "field": "Mathematics",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 69.8,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0,
+   "grade_scale_min_pass": 33.0
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 6.0,
+   "min_band": 5.0
+  }
+ ],
+ "english_medium_instruction": true,
+ "work_experience_months": 3,
+ "interests": [
+  "distributed systems",
+  "robotics"
+ ]
+}
