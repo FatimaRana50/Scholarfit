@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.next/
+runs/cache/
+runs/llm_calls.jsonl
+data/scholarfit.db
+# real CVs never go in the repository
+data/profiles/real/

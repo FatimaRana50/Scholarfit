@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    env_file: .env
+    environment:
+      SCHOLARFIT_DB: /srv/data/scholarfit.db
+    volumes:
+      - ./data:/srv/data          # programmes, catalogue database, labels
+      - ./runs:/srv/runs          # call logs and experiment results
+    ports: ["8000:8000"]
+  frontend:
+    build: { context: ./frontend, args: { NEXT_PUBLIC_API_URL: "http://localhost:8000" } }
+    ports: ["3000:3000"]
+    depends_on: [backend]
+  # Optional local model for the API-vs-local comparison:
+  #   docker compose --profile local up  then  docker compose exec ollama ollama pull qwen2.5:7b-instruct
+  ollama:
+    image: ollama/ollama
+    profiles: ["local"]
+    ports: ["11434:11434"]
+    volumes: ["ollama:/root/.ollama"]
+volumes:
+  ollama: {}
