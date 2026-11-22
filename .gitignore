@@ -11,3 +11,6 @@ data/scholarfit.db
 data/profiles/real/
 
 .venv/
+
+# local experiment databases
+data/scholarfit_gptoss.db
