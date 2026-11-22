@@ -7,6 +7,7 @@ from datetime import date
 from pathlib import Path
 from typing import Optional
 
+import requests
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, RedirectResponse
@@ -133,6 +134,13 @@ def calendar_add(req: CalendarAdd):
         ev = gcal.add_deadline(prog.name, d, prog.url)
     except PermissionError:
         raise HTTPException(401, "Connect Google Calendar first")
+    except requests.RequestException as e:       # Google refused (API disabled, expired token, ...): report it, do not crash
+        resp = getattr(e, "response", None)
+        try:
+            msg = resp.json()["error"]["message"] if resp is not None else str(e)
+        except Exception:
+            msg = str(e)
+        raise HTTPException(502, f"Google Calendar error: {msg}")
     return {"ok": True, "event_link": ev.get("htmlLink")}
 
 
