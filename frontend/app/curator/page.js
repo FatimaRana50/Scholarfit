@@ -25,8 +25,8 @@ export default function Curator() {
         <tr key={it.criterion_id}>
           <td><strong>{it.programme_id}</strong><div className="muted">{it.criterion.type} · {it.criterion.handling} · extracted by {it.model}</div></td>
           <td>{it.criterion.text}<div className="quote">“{it.criterion.source_quote}”</div></td>
-          <td className="row"><button onClick={() => review(it.criterion_id, true)}>Approve</button>
-            <button className="secondary" onClick={() => review(it.criterion_id, false)}>Reject</button></td>
+          <td className="row"><button className="accent small" onClick={() => review(it.criterion_id, true)}>Approve</button>
+            <button className="secondary small" onClick={() => review(it.criterion_id, false)}>Reject</button></td>
         </tr>))}</tbody></table>
     </div>
   );
