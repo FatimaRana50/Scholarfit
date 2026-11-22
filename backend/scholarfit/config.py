@@ -48,7 +48,7 @@ def model_cfg(name: str) -> dict:
 
 
 def default_model() -> str:
-    return os.environ.get("SCHOLARFIT_MODEL", "gemini-flash")
+    return os.environ.get("SCHOLARFIT_MODEL", "gemini-flash-lite")
 
 
 def prompt(name: str) -> str:
