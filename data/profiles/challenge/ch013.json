@@ -1,0 +1,36 @@
+{
+ "profile_id": "ch013",
+ "date_of_birth": "2000-12-06",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 87.8,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Computer Science",
+   "field": "Computer Science",
+   "institution": "UET Lahore",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true
+  }
+ ],
+ "english_tests": [
+  {
+   "test": "IELTS",
+   "overall": 7.0,
+   "min_band": 6.5
+  }
+ ],
+ "work_experience_months": 12,
+ "interests": [
+  "machine learning"
+ ]
+}

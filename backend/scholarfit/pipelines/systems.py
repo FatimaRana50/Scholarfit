@@ -19,7 +19,7 @@ from typing import Optional
 
 from ..llm.client import CallMeta, LLMError, chat_json
 from ..retrieval import format_sections, retrieve, split_sections
-from ..rules.engine import age_on, combine, evaluate
+from ..rules.engine import age_on, combine, evaluate, resolve_groups, target_level
 from ..schemas import (Criterion, CriterionVerdict, CriterionType, EligibilityResult,
                        GradeScale, Label, Profile, Programme)
 from .common import B1Out, LabelOut, build_messages, profile_json
@@ -143,11 +143,12 @@ def run_s1(prog: Programme, prof: Profile, model: str, today: date, context: str
     except LLMError as e:
         return EligibilityResult(programme_id=prog.programme_id, profile_id=prof.profile_id, system="S1",
                                  overall=Label.INSUFFICIENT, error=str(e)[:200])
+    # same deterministic preprocessing as S2, so S1 and S2 differ only in who judges each criterion
+    target = target_level(prof)
+    criteria = [c for c in criteria if c.type != CriterionType.DEADLINE and (c.track is None or c.track == target)]
     verdicts = []
     for c in criteria:
-        if c.type == CriterionType.DEADLINE:
-            continue
-        if c.handling.value == "manual_check":
+        if c.handling.value == "manual_check" or c.type in (CriterionType.DOCUMENT, CriterionType.ADMISSION):
             verdicts.append(CriterionVerdict(criterion_id=c.criterion_id, type=c.type, label=Label.MANUAL,
                                              reason="manual check"))
             continue
@@ -163,6 +164,7 @@ def run_s1(prog: Programme, prof: Profile, model: str, today: date, context: str
         except LLMError as e:
             verdicts.append(CriterionVerdict(criterion_id=c.criterion_id, type=c.type, label=Label.INSUFFICIENT,
                                              reason=f"error: {e}"[:200]))
+    resolve_groups(criteria, verdicts)
     res = EligibilityResult(programme_id=prog.programme_id, profile_id=prof.profile_id, system="S1",
                             overall=combine(verdicts), criteria=verdicts)
     return _finish(res, metas, t0)

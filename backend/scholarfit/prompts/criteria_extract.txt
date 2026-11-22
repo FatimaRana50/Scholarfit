@@ -6,13 +6,21 @@ grades yourself and do not judge any student: only record what the call says.
 
 Return {"criteria": [ ... ]} where each criterion has:
 - "type": one of min_grade, years_of_education, min_credits, degree_level, degree_field,
-          age_limit, nationality, english_test, work_experience, deadline, other
+          age_limit, nationality, english_test, work_experience, deadline, document, admission, other
+          (document = a document to submit, e.g. transcripts, attested degree, recommendation letters;
+           admission = "must meet the admission requirements of the host university/programme")
 - "handling": "auto" for the types above that rules can check; "semantic" for degree_field and
   requirements that need judgement (e.g. "relevant field", "strong academic record");
   "manual_check" for selection stages or things a CV cannot show (interview, olympiad round,
   entrance test, embassy nomination, medical certificate, recommendation letters)
 - "text": the requirement in plain words
 - "source_quote", "source_section"
+- "track": "master" or "phd" ONLY if the call says the requirement applies to applicants for that
+  degree or track (e.g. "for the doctoral course: 18 years of education"); otherwise null
+- "any_of": the same short id (e.g. "eng1") on every criterion that is an ALTERNATIVE to the others
+  ("IELTS 6.5 or a degree taught in English", "180 ECTS or a four-year bachelor's degree"); otherwise null
+- "condition": a condition the call attaches to meeting the requirement, in its words
+  (e.g. "final-year students must graduate before 1 September"); otherwise null
 Type-specific fields (include only those that apply):
 - min_grade: "grade_min_value" (number), "grade_scale" (cgpa_4, cgpa_5, percentage, uk_class, german),
   "uk_class_min" (first, upper_second, lower_second, third),
@@ -27,12 +35,15 @@ Type-specific fields (include only those that apply):
 - degree_field: "fields": [list of accepted fields]
 - age_limit: "max_age" = the highest age still allowed ("under 35" -> 34; "not older than 35" -> 35),
   "age_reference_date" ("YYYY-MM-DD") if stated, or "born_on_or_after" ("YYYY-MM-DD") if stated
-- nationality: "nationalities_allowed" and/or "nationalities_excluded" (country names)
+- nationality: "nationalities_allowed" and/or "nationalities_excluded" (country names). List only
+  countries the call names. If the call is open to all foreign citizens, leave "nationalities_allowed"
+  empty and put only the countries it excludes (often the host country) in "nationalities_excluded".
 - english_test: "english_min_scores" e.g. {"IELTS": 6.5, "TOEFL_iBT": 90},
   "english_min_band" e.g. {"IELTS": 6.0}, "english_waiver_medium_of_instruction" (true if a degree
   taught in English replaces the test)
 - work_experience: "min_work_months"
-- deadline: "deadline" ("YYYY-MM-DD")
+- deadline: "deadline" ("YYYY-MM-DD"). Always add the application deadline as a deadline criterion if
+  the sections state one; it is the reference date for age limits that give no other date.
 ### USER
 Programme: <<programme_name>>
 

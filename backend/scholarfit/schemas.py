@@ -11,7 +11,7 @@ from datetime import date
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 
 # --------------------------------------------------------------------------- labels
@@ -20,6 +20,7 @@ class Label(str, Enum):
     NOT_ELIGIBLE = "not_eligible"
     INSUFFICIENT = "insufficient_info"
     MANUAL = "manual_check"  # selection stages (interview, olympiad round): shown, not scored
+    CONDITIONAL = "conditional"  # met if a condition stated in the call is satisfied (scored as eligible)
 
 
 EVAL_LABELS = [Label.ELIGIBLE.value, Label.NOT_ELIGIBLE.value, Label.INSUFFICIENT.value]
@@ -76,6 +77,7 @@ class Profile(BaseModel):
     english_medium_instruction: Optional[bool] = None  # bachelor taught in English (certificate)
     work_experience_months: Optional[int] = None
     interests: list[str] = Field(default_factory=list)
+    target_level: Optional[DegreeLevel] = None   # degree applied for; default: next above the highest completed
 
     def highest(self, level: DegreeLevel | None = None) -> Optional[Degree]:
         order = [DegreeLevel.SECONDARY, DegreeLevel.INTERMEDIATE, DegreeLevel.BACHELOR,
@@ -98,6 +100,8 @@ class CriterionType(str, Enum):
     ENGLISH_TEST = "english_test"
     WORK_EXPERIENCE = "work_experience"
     DEADLINE = "deadline"                 # informational, never decides eligibility
+    DOCUMENT = "document"                 # a document to prepare: listed, never judged
+    ADMISSION = "admission"               # host-university admission requirement: manual check
     OTHER = "other"
 
 
@@ -126,6 +130,9 @@ class Criterion(BaseModel):
     criterion_id: Optional[str] = None
     type: CriterionType
     handling: Handling = Handling.AUTO
+    track: Optional[DegreeLevel] = None       # applies only to applicants for this degree (e.g. MEXT doctoral track)
+    any_of: Optional[str] = None              # criteria sharing this group id are alternatives
+    condition: Optional[str] = None           # a condition stated in the call (e.g. "graduate before 1 October")
     text: str = ""                            # the requirement in plain words
     source_quote: Optional[str] = None        # exact sentence from the call
     source_section: Optional[str] = None      # retrieved section id
@@ -159,11 +166,6 @@ class Criterion(BaseModel):
     # nationality
     nationalities_allowed: list[str] = Field(default_factory=list)
     nationalities_excluded: list[str] = Field(default_factory=list)
-
-    @field_validator("thresholds", "fields", "nationalities_allowed", "nationalities_excluded", mode="before")
-    @classmethod
-    def _null_list_is_empty(cls, v):
-        return [] if v is None else v   # models sometimes return null for "none listed"
 
     # english_test
     english_min_scores: dict[str, float] = Field(default_factory=dict)   # {"IELTS": 6.5}

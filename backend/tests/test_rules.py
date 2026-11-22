@@ -87,7 +87,7 @@ def test_years_in_progress():
     p.degrees[1].completed = False
     assert run(c, p) == Label.INSUFFICIENT
     c.final_year_allowed = True
-    assert run(c, p) == Label.ELIGIBLE
+    assert run(c, p) == Label.CONDITIONAL   # v2: met once the degree is completed
 
 
 def test_ects():
@@ -149,20 +149,3 @@ def test_combine_ignores_manual():
     assert combine([v(Label.ELIGIBLE), v(Label.INSUFFICIENT)]) == Label.INSUFFICIENT
     assert combine([v(Label.INSUFFICIENT), v(Label.NOT_ELIGIBLE)]) == Label.NOT_ELIGIBLE
     assert combine([]) == Label.INSUFFICIENT
-
-
-def test_skip_judge_when_already_not_eligible():
-    calls = []
-
-    def judge(c, p):
-        calls.append(c.text)
-        return Label.ELIGIBLE, "ok"
-    crit = [Criterion(type=T.OTHER, handling=Handling.SEMANTIC, text="statement of purpose"),
-            Criterion(type=T.WORK_EXPERIENCE, min_work_months=24)]   # profile has 6 months: not eligible
-    r = evaluate("x", crit, profile(), semantic_judge=judge, today=date(2025, 12, 1), skip_judge_if_failed=True)
-    assert calls == []                                          # judge never called
-    assert r.overall == Label.NOT_ELIGIBLE
-    assert [v.type for v in r.criteria] == [T.OTHER, T.WORK_EXPERIENCE]   # original order kept
-    assert r.criteria[0].rule_used == "skipped"
-    evaluate("x", crit, profile(), semantic_judge=judge, today=date(2025, 12, 1))
-    assert calls == ["statement of purpose"]                    # default: every criterion is judged

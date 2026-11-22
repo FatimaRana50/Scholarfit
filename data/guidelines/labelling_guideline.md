@@ -1,4 +1,4 @@
-# ScholarFit labelling guideline (v1.0)
+# ScholarFit labelling guideline (v1.1)
 
 Freeze this file before the first experiment run. Record any later change, and the date,
 in the changelog at the bottom. Labels are made by people only. Never copy a label from
@@ -80,6 +80,27 @@ note.
 **Nationality:** "developing countries" or "partner countries" lists count only if the
 list is in the snapshot text; otherwise `II`.
 
+**Alternatives (any of).** If the call gives alternatives ("IELTS 6.5 or an English-medium
+degree", "180 ECTS or a four-year bachelor's degree"), label `E` when any one alternative is
+clearly met, `NE` only when every alternative clearly fails, otherwise `II`.
+
+**Track-specific requirements.** Some calls set different requirements per track or target
+degree (MEXT: 16 years for the master's track, 18 for the doctoral track; GKS: embassy vs
+university track). Apply only the track the student would apply for: the next degree above
+their highest completed degree (a bachelor holder applies for a master's). Write the track in
+`notes`. Never apply a requirement of another track.
+
+**Conditional eligibility.** If the call itself states a condition the student can still meet
+before the programme starts (graduating before the start date, submitting an English-medium
+certificate for a waiver), label `E` and write `conditional: <the condition>` in `notes`.
+
+**Documents.** Transcripts, attestation, recommendation letters and certificates are not
+labelled. Only if the call makes a document an eligibility condition is it `manual_check`.
+A document that is missing from the profile never changes the label.
+
+**Missing profile information.** If the call states a requirement and the profile does not
+give the value (no grade, no nationality, no dates for work experience), label `II`.
+
 ## 4. Procedure
 
 1. Read the programme text in the snapshot only, never the live website.
@@ -94,3 +115,7 @@ list is in the snapshot text; otherwise `II`.
 
 ## Changelog
 - v1.0 (2026-11-21): first version.
+- v1.1 (2026-11-23): rules for alternatives, track-specific requirements, conditional
+  eligibility, documents and missing profile information, written after the supervisor's
+  feedback and the first error analysis. Used for the challenge set; the 150 main pairs keep
+  their v1.0 labels, and any pair whose label would change under v1.1 is listed separately.

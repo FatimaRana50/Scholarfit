@@ -18,7 +18,7 @@ import numpy as np
 from scipy.stats import binomtest
 
 LABELS = ["E", "NE", "II"]
-TO_CODE = {"eligible": "E", "not_eligible": "NE", "insufficient_info": "II", "manual_check": "II",
+TO_CODE = {"eligible": "E", "conditional": "E", "not_eligible": "NE", "insufficient_info": "II", "manual_check": "II",
            "E": "E", "NE": "NE", "II": "II", "NA": "NA"}
 SEVERITY = {"NE": 3, "II": 2, "E": 1}
 

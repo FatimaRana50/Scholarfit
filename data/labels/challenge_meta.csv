@@ -1,0 +1,61 @@
+pair_id,programme_id,original_split,scenario,aimed_at,note
+chal001,em-jemaro,test,two_year_only,NE,only a 2-year B.Sc. (14 years of education)
+chal002,em-cyberus,test,alevels,E,A-levels instead of F.Sc.
+chal003,sh-cs-2720,test,final_year,E,"final-year student, graduation expected before the programme starts"
+chal004,sh-cs-1530,test,no_test,NE,no English test; English-medium certificate but no waiver stated
+chal005,em-cybersure,unknown,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
+chal006,mext-research-guidelines,test,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
+chal007,sh-cs-2720,test,alevels,E,A-levels instead of F.Sc.
+chal008,em-cyberus,test,clean,E,meets every stated requirement
+chal009,mext-research-guidelines,test,two_year_only,NE,only a 2-year B.Sc. (14 years of education)
+chal010,em-cosi,test,final_year,NE,"final-year student, graduation expected before the programme starts"
+chal011,sh-cs-2720,test,clean,E,meets every stated requirement
+chal012,mext-research-guidelines,test,other_nationality,NE,nationality outside the eligible list
+chal013,em-cybersure,unknown,no_grade,II,grade requirement but the CV gives no grade
+chal014,mext-research-guidelines,test,wrong_level,NE,bachelor's degree only; a track or requirement asks for a master's (check track conditions)
+chal015,em-cyberus,test,work_short,NE,work experience one month short
+chal016,em-cyberus,test,no_work_info,II,work-experience requirement but the CV does not state any dates
+chal017,em-cybersure,unknown,percentage_scale,II,grade on a percentage scale; the programme may give no rule for it
+chal018,mext-research-guidelines,test,age_over,NE,one day over the age limit on the reference date
+chal019,em-cosi,test,no_test,NE,no English test; English-medium certificate but no waiver stated
+chal020,mext-research-guidelines,test,no_dob,II,age limit but no date of birth on the CV
+chal021,sh-cse-budapest,test,no_grade,II,grade requirement but the CV gives no grade
+chal022,sh-cs-2720,test,emi_waiver,E,"no English test, English-medium certificate, programme states a waiver"
+chal023,sh-cse-budapest,test,emi_waiver,E,"no English test, English-medium certificate, programme states a waiver"
+chal024,em-cybersure,unknown,band_low,NE,IELTS overall meets the requirement but one band is too low
+chal025,sh-cse-budapest,test,percentage_scale,II,grade on a percentage scale; the programme may give no rule for it
+chal026,sh-cs-ukraine,dev,no_nationality,II,nationality requirement but the CV does not state nationality
+chal027,sh-cs-ukraine,dev,other_nationality,NE,nationality outside the eligible list
+chal028,mext-teachers,dev,work_short,NE,work experience one month short
+chal029,mext-teachers,dev,no_dob,II,age limit but no date of birth on the CV
+chal030,mext-teachers,dev,no_work_info,II,work-experience requirement but the CV does not state any dates
+chal031,mext-teachers,dev,age_over,NE,one day over the age limit on the reference date
+chal032,mext-teachers,dev,age_edge_ok,E,exactly at the age limit on the reference date
+chal033,em-bdma,test,alevels,E,A-levels instead of F.Sc.
+chal034,em-ifros,test,alevels,E,A-levels instead of F.Sc.
+chal035,em-cyberus,test,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
+chal036,sh-cs-elte,test,final_year,NE,"final-year student, graduation expected before the programme starts"
+chal037,em-cyberus,test,two_year_only,NE,only a 2-year B.Sc. (14 years of education)
+chal038,sh-cse-budapest,test,clean,E,meets every stated requirement
+chal039,em-bdma,test,clean,E,meets every stated requirement
+chal040,sh-cs-1530,test,final_year,NE,"final-year student, graduation expected before the programme starts"
+chal041,em-ifros,test,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
+chal042,sh-cs-2720,test,percentage_scale,II,grade on a percentage scale; the programme may give no rule for it
+chal043,sh-cs-2720,test,no_grade,II,grade requirement but the CV gives no grade
+chal044,em-cybersure,unknown,two_year_only,NE,only a 2-year B.Sc. (14 years of education)
+chal045,em-cybersure,unknown,emi_waiver,E,"no English test, English-medium certificate, programme states a waiver"
+chal046,sh-cs-ukraine,dev,no_test,NE,no English test; English-medium certificate but no waiver stated
+chal047,sh-cse-ppke,test,clean,E,meets every stated requirement
+chal048,em-bdma,test,final_year,NE,"final-year student, graduation expected before the programme starts"
+chal049,sh-cse-budapest,test,final_year,E,"final-year student, graduation expected before the programme starts"
+chal050,sh-cs-1530,test,alevels,E,A-levels instead of F.Sc.
+chal051,em-ifros,test,two_year_only,NE,only a 2-year B.Sc. (14 years of education)
+chal052,sh-cs-elte,test,alevels,E,A-levels instead of F.Sc.
+chal053,em-ifros,test,clean,E,meets every stated requirement
+chal054,em-cosi,test,alevels,E,A-levels instead of F.Sc.
+chal055,sh-cse-budapest,test,alevels,E,A-levels instead of F.Sc.
+chal056,sh-cs-elte,test,clean,E,meets every stated requirement
+chal057,sh-cs-1530,test,clean,E,meets every stated requirement
+chal058,em-jemaro,test,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
+chal059,em-jemaro,test,final_year,NE,"final-year student, graduation expected before the programme starts"
+chal060,sh-cs-ukraine,dev,final_year,NE,"final-year student, graduation expected before the programme starts"

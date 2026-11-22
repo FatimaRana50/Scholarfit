@@ -11,6 +11,8 @@ from typing import Callable, Optional
 
 from ..schemas import (Criterion, CriterionType, CriterionVerdict, DegreeLevel,
                        EligibilityResult, Handling, Label, Profile)
+
+__all__ = ["evaluate", "combine", "resolve_groups", "target_level", "missing_requirements", "age_on"]
 from .grades import evaluate_grade
 
 LEVEL_ORDER = [DegreeLevel.SECONDARY, DegreeLevel.INTERMEDIATE, DegreeLevel.BACHELOR,
@@ -33,6 +35,17 @@ def _norm_country(x: Optional[str]) -> Optional[str]:
 
 def age_on(dob: date, ref: date) -> int:
     return ref.year - dob.year - ((ref.month, ref.day) < (dob.month, dob.day))
+
+
+def target_level(p: Profile) -> DegreeLevel:
+    """The degree the student applies for: as stated, else the next above the highest completed one."""
+    if p.target_level:
+        return p.target_level
+    done = [d.level for d in p.degrees if d.level in TERTIARY and d.completed]
+    if not done:
+        return DegreeLevel.BACHELOR if not any(d.level in TERTIARY for d in p.degrees) else DegreeLevel.MASTER
+    top = max(done, key=LEVEL_ORDER.index)
+    return DegreeLevel.PHD if top in (DegreeLevel.MASTER, DegreeLevel.PHD) else DegreeLevel.MASTER
 
 
 def _completed_tertiary(p: Profile, include_in_progress: bool):
@@ -61,7 +74,9 @@ def _years_of_education(c: Criterion, p: Profile):
     with_current = total(True)
     if with_current is not None and with_current >= c.min_years:
         if c.final_year_allowed:
-            return Label.ELIGIBLE, f"{with_current:g} years including the degree in progress; final-year applicants allowed.", "12 + degree durations"
+            return (Label.CONDITIONAL, f"{with_current:g} years once the degree in progress is completed; "
+                    "final-year applicants allowed, so the degree must be completed before the programme starts.",
+                    "12 + degree durations")
         return Label.INSUFFICIENT, f"Only {done:g} completed years; {with_current:g} after the degree in progress.", "12 + degree durations"
     return Label.NOT_ELIGIBLE, f"{done:g} years of education vs {c.min_years:g} required.", "12 + degree durations"
 
@@ -92,7 +107,8 @@ def _degree_level(c: Criterion, p: Profile):
     current = [d for d in p.degrees if LEVEL_ORDER.index(d.level) >= need and not d.completed]
     if current:
         if c.final_year_allowed is True:
-            return Label.ELIGIBLE, "Degree in progress; final-year applicants are allowed.", None
+            return (Label.CONDITIONAL, "Degree in progress; final-year applicants are allowed if they graduate "
+                    "before the programme starts.", None)
         if c.final_year_allowed is False:
             return Label.NOT_ELIGIBLE, "Degree not yet completed; final-year applicants not allowed.", None
         return Label.INSUFFICIENT, "Degree in progress and the call does not say if final-year students may apply.", None
@@ -181,6 +197,9 @@ def _grade_degree(c: Criterion, p: Profile):
 
 
 # --------------------------------------------------------------------------- engine
+GROUP_ORDER = [Label.ELIGIBLE, Label.CONDITIONAL, Label.INSUFFICIENT, Label.NOT_ELIGIBLE]
+
+
 def combine(verdicts: list[CriterionVerdict]) -> Label:
     scored = [v.label for v in verdicts if v.label != Label.MANUAL]
     if not scored:
@@ -189,33 +208,47 @@ def combine(verdicts: list[CriterionVerdict]) -> Label:
         return Label.NOT_ELIGIBLE
     if Label.INSUFFICIENT in scored:
         return Label.INSUFFICIENT
+    if Label.CONDITIONAL in scored:
+        return Label.CONDITIONAL
     return Label.ELIGIBLE
 
 
-def _needs_judge(c: Criterion) -> bool:
-    return c.handling != Handling.MANUAL and (
-        c.handling == Handling.SEMANTIC or c.type in (CriterionType.DEGREE_FIELD, CriterionType.OTHER))
+def resolve_groups(criteria: list[Criterion], verdicts: list[CriterionVerdict]) -> None:
+    """Alternatives (same any_of id): the group is met if any member is met."""
+    groups: dict[str, list[int]] = {}
+    for i, c in enumerate(criteria):
+        if c.any_of and verdicts[i].label != Label.MANUAL:
+            groups.setdefault(c.any_of, []).append(i)
+    for idx in groups.values():
+        if len(idx) < 2:
+            continue
+        best = min((verdicts[i].label for i in idx), key=GROUP_ORDER.index)
+        winner = next(i for i in idx if verdicts[i].label == best)
+        for i in idx:
+            v = verdicts[i]
+            if i != winner:
+                v.reason = f"Alternative to another requirement ({best.value}); own check: {v.reason}"
+            v.label = best
 
 
 def evaluate(programme_id: str, criteria: list[Criterion], profile: Profile,
              semantic_judge: Optional[SemanticJudge] = None, today: Optional[date] = None,
-             system: str = "S2", skip_judge_if_failed: bool = False) -> EligibilityResult:
-    """skip_judge_if_failed: once a rule-based criterion is NOT_ELIGIBLE the overall verdict cannot
-    change, so the (slow, paid) semantic judge is not called for the remaining criteria. Off by default
-    so experiments judge every criterion."""
+             system: str = "S2") -> EligibilityResult:
     deadline = next((c.deadline for c in criteria if c.type == CriterionType.DEADLINE and c.deadline), None)
-    done: dict[int, CriterionVerdict] = {}
-    # rule-based criteria first (stable sort), so a failure is known before any judge call
-    for idx, c in sorted(enumerate(criteria), key=lambda t: _needs_judge(t[1])):
-        if c.type == CriterionType.DEADLINE:
-            continue
+    target = target_level(profile)
+    kept = [c for c in criteria if c.type != CriterionType.DEADLINE and (c.track is None or c.track == target)]
+    out: list[CriterionVerdict] = []
+    for c in kept:
         rule = None
-        if c.handling == Handling.MANUAL:
+        if c.type == CriterionType.DOCUMENT:
+            label, reason = Label.MANUAL, f"Document to prepare: {c.text or 'see the call'}."
+        elif c.type == CriterionType.ADMISSION:
+            label, reason = Label.MANUAL, ("Admission requirement of the host university, separate from scholarship "
+                                           "eligibility: confirm with the university.")
+        elif c.handling == Handling.MANUAL:
             label, reason = Label.MANUAL, "Checked by a person (selection stage or not verifiable from a CV)."
-        elif _needs_judge(c):
-            if skip_judge_if_failed and any(v.label == Label.NOT_ELIGIBLE for v in done.values()):
-                label, reason, rule = Label.INSUFFICIENT, "Not checked: another requirement is already not met.", "skipped"
-            elif semantic_judge is None:
+        elif c.handling == Handling.SEMANTIC or c.type in (CriterionType.DEGREE_FIELD, CriterionType.OTHER):
+            if semantic_judge is None:
                 label, reason = Label.INSUFFICIENT, "Needs a semantic judgement; no judge configured."
             else:
                 label, reason = semantic_judge(c, profile)
@@ -238,10 +271,37 @@ def evaluate(programme_id: str, criteria: list[Criterion], profile: Profile,
             label, reason, rule = _work(c, profile)
         else:
             label, reason = Label.INSUFFICIENT, "Unsupported criterion type."
-        done[idx] = CriterionVerdict(criterion_id=c.criterion_id, type=c.type, label=label,
-                                     reason=reason, rule_used=rule, citation=c.source_quote)
-    out = [done[i] for i in sorted(done)]
+        if label == Label.ELIGIBLE and c.condition:
+            label, reason = Label.CONDITIONAL, f"{reason} Condition: {c.condition}"
+        out.append(CriterionVerdict(criterion_id=c.criterion_id, type=c.type, label=label,
+                                    reason=reason, rule_used=rule, citation=c.source_quote))
+    resolve_groups(kept, out)
     today = today or date.today()
     return EligibilityResult(programme_id=programme_id, profile_id=profile.profile_id, system=system,
                              overall=combine(out), criteria=out,
                              deadline_open=(deadline >= today) if deadline else None)
+
+
+# --------------------------------------------------------------------------- what the student still needs
+def missing_requirements(result: EligibilityResult, criteria: list[Criterion]) -> list[dict]:
+    """Plain-language to-do list for one programme (feature F8): what is not met, undecided,
+    conditional, to be checked by a person, or a document to prepare."""
+    by_id = {c.criterion_id: c for c in criteria if c.criterion_id}
+    todo = []
+    for v in result.criteria:
+        c = by_id.get(v.criterion_id)
+        what = (c.text if c and c.text else v.type.value.replace("_", " "))
+        if v.label == Label.NOT_ELIGIBLE:
+            kind, action = "not_met", f"Not met: {what}. {v.reason}"
+        elif v.label == Label.INSUFFICIENT:
+            kind, action = "missing_info", f"Add the missing information or check the call: {what}. {v.reason}"
+        elif v.label == Label.CONDITIONAL:
+            kind, action = "condition", f"Make sure this condition is met before the programme starts: {v.reason}"
+        elif v.label == Label.MANUAL:
+            kind = "document" if v.type == CriterionType.DOCUMENT else "manual"
+            action = v.reason if v.type in (CriterionType.DOCUMENT, CriterionType.ADMISSION) else f"Checked by a person: {what}."
+        else:
+            continue
+        todo.append({"kind": kind, "type": v.type.value, "action": action, "evidence": v.citation})
+    order = {"not_met": 0, "missing_info": 1, "condition": 2, "document": 3, "manual": 4}
+    return sorted(todo, key=lambda t: order[t["kind"]])

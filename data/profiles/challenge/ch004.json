@@ -1,0 +1,35 @@
+{
+ "profile_id": "ch004",
+ "date_of_birth": "2000-01-09",
+ "nationality": "Pakistan",
+ "degrees": [
+  {
+   "level": "intermediate",
+   "title": "F.Sc. Pre-Engineering",
+   "duration_years": 2.0,
+   "completed": true,
+   "grade_value": 81.3,
+   "grade_scale": "percentage",
+   "grade_scale_max": 100.0
+  },
+  {
+   "level": "bachelor",
+   "title": "BS Computer Science",
+   "field": "Computer Science",
+   "institution": "University of Peshawar",
+   "country": "Pakistan",
+   "duration_years": 4.0,
+   "completed": true,
+   "grade_value": 3.6,
+   "grade_scale": "cgpa_4",
+   "grade_scale_max": 4.0,
+   "grade_scale_min_pass": 2.0
+  }
+ ],
+ "english_tests": [],
+ "english_medium_instruction": true,
+ "work_experience_months": 12,
+ "interests": [
+  "machine learning"
+ ]
+}
