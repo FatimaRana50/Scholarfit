@@ -6,6 +6,22 @@ const LABEL_TEXT = { eligible: "Eligible", not_eligible: "Not eligible", insuffi
 const LEVELS = ["intermediate", "bachelor", "master", "phd"];
 const SCALES = ["cgpa_4", "cgpa_5", "percentage", "uk_class", "german", "other"];
 
+const FAMILIES = {
+  chevening: { name: "Chevening", flag: "UK", color: "#1d3557" },
+  commonwealth: { name: "Commonwealth", flag: "UK", color: "#6a4c93" },
+  csc_china: { name: "CSC China", flag: "CN", color: "#c1121f" },
+  daad: { name: "DAAD Germany", flag: "DE", color: "#2b2d42" },
+  erasmus_mundus: { name: "Erasmus Mundus", flag: "EU", color: "#0b3d91" },
+  fulbright: { name: "Fulbright", flag: "US", color: "#3d5a80" },
+  gks_korea: { name: "GKS Korea", flag: "KR", color: "#2a9d8f" },
+  hec: { name: "HEC Pakistan", flag: "PK", color: "#1b6b3a" },
+  mext: { name: "MEXT Japan", flag: "JP", color: "#9d0208" },
+  open_doors: { name: "Open Doors Russia", flag: "RU", color: "#264653" },
+  stipendium_hungaricum: { name: "Stipendium Hungaricum", flag: "HU", color: "#386641" },
+  turkiye_burslari: { name: "Türkiye Burslari", flag: "TR", color: "#bb3e03" },
+};
+const FILTERS = [["all", "All"], ["eligible", "Eligible"], ["insufficient_info", "Need information"], ["not_eligible", "Not eligible"]];
+
 function Badge({ label }) {
   return <span className={`badge ${label}`}>{LABEL_TEXT[label] || label}</span>;
 }
@@ -70,19 +86,19 @@ function ResultRow({ r, calendar }) {
   return (
     <>
       <tr>
-        <td><strong>{r.name}</strong><div className="muted">{r.family} · snapshot {r.snapshot_date}</div></td>
+        <td><strong>{r.name}</strong><div className="muted">{(FAMILIES[r.family] || {}).flag} {(FAMILIES[r.family] || {}).name || r.family} · snapshot {r.snapshot_date}</div></td>
         <td><Badge label={r.overall} /></td>
         <td>{r.deadline || <span className="muted">not found</span>}</td>
         <td className="row">
-          <button className="secondary" onClick={() => setOpen(!open)}>{open ? "Hide" : "Why?"}</button>
-          {r.deadline && calendar.connected && <button onClick={addToCalendar}>Add deadline</button>}
-          {r.deadline && <a className="btn secondary" href={`${API}/api/programmes/${r.programme_id}/deadline.ics`}>.ics</a>}
+          <button className="secondary small" onClick={() => setOpen(!open)}>{open ? "Hide" : "Why?"}</button>
+          {r.deadline && calendar.connected && <button className="accent small" onClick={addToCalendar}>Add deadline</button>}
+          {r.deadline && <a className="btn secondary small" href={`${API}/api/programmes/${r.programme_id}/deadline.ics`}>.ics</a>}
           {msg && <span className="muted">{msg}</span>}
         </td>
       </tr>
       {open && (
         <tr><td colSpan={4}>
-          <table>
+          <table className="nested">
             <thead><tr><th>Requirement</th><th>Verdict</th><th>Reason</th></tr></thead>
             <tbody>{r.criteria.map((c, i) => (
               <tr key={i}>
@@ -107,7 +123,12 @@ export default function Home() {
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
   const [calendar, setCalendar] = useState({ configured: false, connected: false });
+  const [families, setFamilies] = useState([]);
+  const [filter, setFilter] = useState("all");
+  const [q, setQ] = useState("");
+  const [prog, setProg] = useState(null);
 
+  useEffect(() => { fetch(`${API}/api/programmes`).then(r => r.json()).then(ps => { const c = {}; ps.forEach(p => { c[p.family] = (c[p.family] || 0) + 1; }); setFamilies(Object.entries(c)); }).catch(() => {}); }, []);
   useEffect(() => { fetch(`${API}/api/calendar/status`).then(r => r.json()).then(setCalendar).catch(() => {}); }, []);
 
   async function extract() {
@@ -130,50 +151,107 @@ export default function Home() {
     let rows = [];
     // one programme per request: results appear as they arrive and the page shows progress
     for (let i = 0; i < ids.length; i++) {
-      setBusy(`Checked ${i} of ${ids.length} programmes... (the first check of a new CV takes a few minutes)`);
+      setBusy(`Checked ${i} of ${ids.length} programmes... (the first check of a new CV can take a minute)`); setProg({ i, n: ids.length });
       const res = await fetch(`${API}/api/check`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profile, programme_ids: [ids[i]] }) });
       const data = await res.json();
       if (!res.ok) { setBusy(""); return setError(data.detail || "Check failed"); }
       rows = sorted([...rows, ...data]); setResults(rows);
     }
-    setBusy("");
+    setBusy(""); setProg(null);
   }
 
   const counts = results ? results.reduce((a, r) => ({ ...a, [r.overall]: (a[r.overall] || 0) + 1 }), {}) : {};
+  const today = new Date().toISOString().slice(0, 10);
+  const deadlines = results ? results.filter(r => r.deadline).sort((a, b) => a.deadline.localeCompare(b.deadline)).slice(0, 5) : [];
+  const top = results ? results.filter(r => r.overall === "eligible").slice(0, 3) : [];
+  const shown = results ? results.filter(r => (filter === "all" || r.overall === filter) && (!q || r.name.toLowerCase().includes(q.toLowerCase()))) : [];
 
   return (
     <div>
-      <div className="card">
-        <h1>Which scholarships can you apply to?</h1>
-        <p className="muted">Upload your CV. ScholarFit reads it, lets you correct the profile, then checks every programme's criteria with each programme's own grade-conversion rule.</p>
-        <div className="row">
-          <input type="file" accept=".pdf,.docx,.txt" onChange={e => setFile(e.target.files[0])} style={{ maxWidth: 340 }} />
-          <button disabled={!file || !!busy} onClick={extract}>Read CV</button>
-          {calendar.configured && !calendar.connected && <a className="btn secondary" href={calendar.auth_url}>Connect Google Calendar</a>}
-          {calendar.connected && <span className="muted">Google Calendar connected</span>}
+      <div className="topbar">
+        <div className="search"><input placeholder="Search programmes in your results..." value={q} onChange={e => setQ(e.target.value)} /></div>
+        <span className="pill"><span className="dot" style={{ background: calendar.connected ? "#22c55e" : "#bbb" }} />{calendar.connected ? "Google Calendar connected" : "Calendar not connected"}</span>
+      </div>
+
+      <div className="hero-grid">
+        <div className="hero">
+          <h1>Which scholarships can you apply to?</h1>
+          <p>Upload your CV. ScholarFit reads it, lets you correct the profile, then checks every programme&apos;s criteria with its own grade-conversion rule.</p>
+          <div className="dropzone">
+            <input type="file" accept=".pdf,.docx,.txt" onChange={e => setFile(e.target.files[0])} />
+            <button disabled={!file || !!busy} onClick={extract}>Read CV</button>
+          </div>
+          {calendar.configured && !calendar.connected && <p style={{ margin: "12px 0 0" }}><a className="btn secondary small" href={calendar.auth_url}>Connect Google Calendar</a></p>}
+          {busy && <p style={{ margin: "12px 0 0", fontSize: 13 }}>{busy}</p>}
+          {prog && <div className="progress"><div style={{ width: `${(prog.i / prog.n) * 100}%` }} /></div>}
+          {error && <p className="error">{error}</p>}
+          
         </div>
-        {busy && <p className="muted">{busy}</p>}
-        {error && <p className="error">{error}</p>}
+        <div className="dark-card">
+          <h3>Upcoming deadlines</h3>
+          <div style={{ fontSize: 20, fontWeight: 700 }}>From your results</div>
+          {deadlines.length === 0 && <div className="empty">Check your eligibility to see programme deadlines here. You can add each one to Google Calendar.</div>}
+          {deadlines.map(r => (
+            <div className="dl" key={r.programme_id}>
+              <span>{r.name.length > 46 ? r.name.slice(0, 46) + "…" : r.name}</span>
+              <span className={`d ${r.deadline < today ? "past" : ""}`}>{r.deadline}{r.deadline < today ? " (passed)" : ""}</span>
+            </div>))}
+        </div>
       </div>
 
       {profile && (
         <div className="card">
-          <h2>Your profile (check and correct before checking eligibility)</h2>
+          <h2>Your profile <span className="muted" style={{ fontWeight: 400 }}>(check and correct before checking eligibility)</span></h2>
           <ProfileEditor profile={profile} setProfile={setProfile} />
-          <div style={{ marginTop: 16 }}><button disabled={!!busy} onClick={check}>Check eligibility</button></div>
+          <div style={{ marginTop: 18 }}><button className="accent" disabled={!!busy} onClick={check}>Check eligibility</button></div>
         </div>
       )}
 
       {results && (
-        <div className="card">
-          <h2>Results</h2>
-          <p className="muted">{counts.eligible || 0} eligible · {counts.insufficient_info || 0} need more information · {counts.not_eligible || 0} not eligible</p>
-          <table>
-            <thead><tr><th>Programme</th><th>Overall</th><th>Deadline</th><th></th></tr></thead>
-            <tbody>{results.map(r => <ResultRow key={r.programme_id} r={r} calendar={calendar} />)}</tbody>
-          </table>
-        </div>
+        <>
+          <div className="stats">
+            <div className="stat ok"><div className="ic">✔</div><div><div className="n">{counts.eligible || 0}</div><div className="t">Eligible</div></div></div>
+            <div className="stat warn"><div className="ic">❓</div><div><div className="n">{counts.insufficient_info || 0}</div><div className="t">Need more information</div></div></div>
+            <div className="stat bad"><div className="ic">✖</div><div><div className="n">{counts.not_eligible || 0}</div><div className="t">Not eligible</div></div></div>
+          </div>
+
+          {top.length > 0 && (
+            <>
+              <div className="section-head"><h2>Your best matches</h2></div>
+              <div className="cards3">
+                {top.map(r => (
+                  <div className="pcard" key={r.programme_id}>
+                    <div className="name">{r.name}</div>
+                    <div className="row"><Badge label={r.overall} />{r.deadline && <span className="muted">Deadline {r.deadline}</span>}</div>
+                    <div className="meta"><span className="fam-ico">{(FAMILIES[r.family] || {}).flag || "🎓"}</span>{(FAMILIES[r.family] || {}).name || r.family}</div>
+                  </div>))}
+              </div>
+            </>
+          )}
+
+          <div className="card">
+            <h2>All programmes</h2>
+            <div className="chips">
+              {FILTERS.map(([k, t]) => <button key={k} className={`chip ${filter === k ? "on" : ""}`} onClick={() => setFilter(k)}>{t}{k !== "all" ? ` (${counts[k] || 0})` : ` (${results.length})`}</button>)}
+            </div>
+            <table>
+              <thead><tr><th>Programme</th><th>Overall</th><th>Deadline</th><th></th></tr></thead>
+              <tbody>{shown.map(r => <ResultRow key={r.programme_id} r={r} calendar={calendar} />)}</tbody>
+            </table>
+            {shown.length === 0 && <p className="muted">No programmes match.</p>}
+          </div>
+        </>
       )}
+
+      <div className="section-head"><h2>Scholarship providers we check</h2><span className="muted">{families.reduce((a, [, n]) => a + n, 0)} programmes</span></div>
+      <div className="tiles">
+        {families.map(([f, n]) => {
+          const fam = FAMILIES[f] || { name: f, flag: "🎓", color: "#333" };
+          return <div className="tile" key={f} style={{ backgroundColor: fam.color, backgroundImage: `linear-gradient(180deg, rgba(0,0,0,.05) 25%, rgba(0,0,0,.78)), url(/destinations/${f}.jpg)` }}>
+            <span className="flag">{fam.flag}</span><div><div className="tn">{fam.name}</div><div className="tc">{n} programme{n > 1 ? "s" : ""}</div></div></div>;
+        })}
+      </div>
+      <footer>ScholarFit advises only. The official programme page is always authoritative.</footer>
     </div>
   );
 }
