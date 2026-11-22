@@ -41,7 +41,7 @@ Local model: install [Ollama](https://ollama.com), then `ollama pull qwen2.5:7b-
 ### Run the app
 
 ```bash
-python scripts/build_catalogue.py --model gemini-flash     # once per snapshot
+python scripts/build_catalogue.py --model gemini-flash-lite     # once per snapshot
 cd backend && uvicorn app.main:app --reload --port 8000
 cd frontend && cp .env.example .env.local && npm install && npm run dev   # http://localhost:3000
 ```
@@ -62,7 +62,7 @@ python scripts/make_synthetic_cvs.py --n 50 --seed 7
 #    real CVs (consent form in data/guidelines): data/profiles/real/<id>.pdf + hand-made <id>.json; never commit
 
 # 3. CriteriaGold: LLM draft -> people check every row -> gold
-python scripts/criteria_gold.py draft --model gemini-flash
+python scripts/criteria_gold.py draft --model gemini-flash-lite
 #    edit data/labels/criteria_checked.csv (set checked_by on every row)
 python scripts/criteria_gold.py build
 python scripts/criteria_gold.py corrections
