@@ -78,6 +78,22 @@ def cgpa_for(c: Criterion, margin: float) -> float | None:
     return round(min(3.98, max(2.05, v)), 2)
 
 
+def pct_threshold(c: Criterion) -> float | None:
+    """A minimum stated as a percentage (e.g. 'at least 70% overall')."""
+    if c.grade_rule == GradeRule.MODIFIED_BAVARIAN:
+        return None
+    v = c.grade_min_value
+    if v and (c.grade_scale == GradeScale.PERCENTAGE or c.grade_rule == GradeRule.PERCENTAGE_THRESHOLD or 4 < v <= 100):
+        return v
+    return None
+
+
+def set_pct(p: Profile, value: float):
+    for d in p.degrees:
+        if d.level in (DegreeLevel.BACHELOR, DegreeLevel.MASTER):
+            d.grade_value, d.grade_scale, d.grade_scale_max, d.grade_scale_min_pass = value, GradeScale.PERCENTAGE, 100, 50
+
+
 def base_profile(crits: list[Criterion], ref: date, rng: random.Random) -> Profile:
     """A profile that satisfies every stated requirement of the programme."""
     field = next((c.fields[0] for c in by_type(crits, CriterionType.DEGREE_FIELD) if c.fields), "Computer Science")
@@ -120,8 +136,12 @@ def base_profile(crits: list[Criterion], ref: date, rng: random.Random) -> Profi
     for c in by_type(crits, CriterionType.NATIONALITY):
         if c.nationalities_allowed and not any("pakistan" in n.lower() for n in c.nationalities_allowed):
             nat = c.nationalities_allowed[0]
-    return Profile(date_of_birth=dob, nationality=nat, degrees=degrees, english_tests=tests,
+    prof = Profile(date_of_birth=dob, nationality=nat, degrees=degrees, english_tests=tests,
                    english_medium_instruction=None, work_experience_months=work, interests=["machine learning"])
+    pct = [pct_threshold(c) for c in by_type(crits, CriterionType.MIN_GRADE) if pct_threshold(c)]
+    if pct:                                  # the call states a percentage: give the grade on that scale
+        set_pct(prof, min(95.0, max(pct) + 8))
+    return prof
 
 
 def shift_years(d: date, years: int) -> date:
@@ -159,6 +179,22 @@ def s_grade_below(p, crits, ref, prog):
         if d.level in (DegreeLevel.BACHELOR, DegreeLevel.MASTER):
             d.grade_value = cgpa_for(c, -0.02)
     return p, "NE", "grade just below the threshold"
+
+
+def s_pct_above(p, crits, ref, prog):
+    t = next((pct_threshold(c) for c in by_type(crits, CriterionType.MIN_GRADE) if pct_threshold(c)), None)
+    if not t:
+        return None
+    set_pct(p, t + 0.5)
+    return p, "E", "percentage grade just above the stated minimum"
+
+
+def s_pct_below(p, crits, ref, prog):
+    t = next((pct_threshold(c) for c in by_type(crits, CriterionType.MIN_GRADE) if pct_threshold(c)), None)
+    if not t:
+        return None
+    set_pct(p, t - 0.5)
+    return p, "NE", "percentage grade just below the stated minimum"
 
 
 def s_no_min_pass(p, crits, ref, prog):
@@ -326,7 +362,7 @@ def s_expired(p, crits, ref, prog):
     return p, "E", "meets every requirement but the deadline has passed (label ignores deadlines)"
 
 
-SCENARIOS = [s_clean, s_grade_above, s_grade_below, s_no_min_pass, s_percentage_scale, s_age_over, s_age_edge_ok,
+SCENARIOS = [s_clean, s_grade_above, s_grade_below, s_pct_above, s_pct_below, s_no_min_pass, s_percentage_scale, s_age_over, s_age_edge_ok,
              s_no_dob, s_no_grade, s_no_work_info, s_no_nationality, s_band_low, s_emi_waiver, s_no_test, s_two_plus_two, s_two_year_only, s_alevels,
              s_final_year, s_wrong_level, s_work_short, s_other_nationality, s_expired]
 
@@ -403,7 +439,13 @@ def main():
     ap.add_argument("--n", type=int, default=60)
     ap.add_argument("--seed", type=int, default=11)
     ap.add_argument("--max-per-programme", type=int, default=6)
+    ap.add_argument("--aim", default="", help="only scenarios aimed at these classes, e.g. E or E,NE")
+    ap.add_argument("--programmes", default="", help="comma-separated programme ids to use")
+    ap.add_argument("--start", type=int, default=1, help="number of the first new pair (use 61 to add to 60)")
+    ap.add_argument("--append", action="store_true", help="add to the existing challenge files")
     args = ap.parse_args()
+    aim = set(filter(None, args.aim.split(",")))
+    only = set(filter(None, args.programmes.split(",")))
     rng = random.Random(args.seed)
 
     gold = defaultdict(list)
@@ -417,14 +459,14 @@ def main():
 
     candidates = []
     for pid, crits in gold.items():
-        if pid not in progs:
+        if pid not in progs or (only and pid not in only):
             continue
         snap = progs[pid].get("snapshot_date")
         ref = ref_date(crits, date.fromisoformat(str(snap)) if snap else None)
         for fn in SCENARIOS:
             base = base_profile(crits, ref, random.Random(hash((pid, fn.__name__, args.seed)) & 0xffffffff))
             out = fn(base, crits, ref, progs[pid])
-            if out:
+            if out and (not aim or out[1] in aim):
                 candidates.append((pid, fn.__name__[2:], out[1], out[2], out[0]))
 
     # prefer programmes from the test split; spread over scenarios and programmes; balance aimed-at classes
@@ -432,6 +474,8 @@ def main():
     candidates.sort(key=lambda c: 0 if split.get(c[0], "test") == "test" else 1)
     chosen, per_prog, per_scen, per_cls = [], Counter(), Counter(), Counter()
     target_cls = {"E": args.n // 3, "NE": args.n // 3, "II": args.n - 2 * (args.n // 3)}
+    if aim:
+        target_cls = {k: (args.n if k in aim else 0) for k in target_cls}
     for rnd in range(4):
         for c in candidates:
             if len(chosen) >= args.n or c in chosen:
@@ -452,7 +496,7 @@ def main():
     header = ["pair_id", "split", "profile_id", "programme_id", "family", "annotator"] + [f"label_{t}" for t in TYPES] \
         + ["overall", "evidence", "notes"]
     rows, meta = [], []
-    for i, (pid, scen, cls, note, prof) in enumerate(chosen, 1):
+    for i, (pid, scen, cls, note, prof) in enumerate(chosen, args.start):
         prof.profile_id = f"ch{i:03d}"
         (prof_dir / f"{prof.profile_id}.json").write_text(prof.model_dump_json(indent=1, exclude_none=True), encoding="utf-8")
         doc = cv_doc(prof, rng)
@@ -463,15 +507,27 @@ def main():
         pair_id = f"chal{i:03d}"
         rows.append([pair_id, "test", prof.profile_id, pid, progs[pid]["family"], ""] + [""] * len(TYPES) + ["", "", ""])
         meta.append([pair_id, pid, split.get(pid, "unknown"), scen, cls, note])
-    for name in ("challenge_pairs.csv", "challenge_annotatorA.csv", "challenge_annotatorB.csv"):
-        with (lab / name).open("w", newline="", encoding="utf-8") as f:
+    mode = "a" if args.append else "w"
+    names = ("challenge_pairs.csv", "challenge_annotatorA.csv", "challenge_annotatorB.csv")
+    if args.append:     # new pairs go to separate files for labelling, and are appended to the master list
+        names = ("challenge_pairs.csv", "challenge2_annotatorA.csv", "challenge2_annotatorB.csv")
+    for name in names:
+        m = "a" if (args.append and name == "challenge_pairs.csv") else "w"
+        with (lab / name).open(m, newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            if m == "w":
+                w.writerow(header)
+            w.writerows(rows)
+    with (lab / "challenge_meta.csv").open(mode, newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        if mode == "w":
+            w.writerow(["pair_id", "programme_id", "original_split", "scenario", "aimed_at", "note"])
+        w.writerows(meta)
+    if args.append:
+        with (lab / "challenge2_pairs.csv").open("w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(header)
             w.writerows(rows)
-    with (lab / "challenge_meta.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["pair_id", "programme_id", "original_split", "scenario", "aimed_at", "note"])
-        w.writerows(meta)
     print(f"wrote {len(rows)} challenge pairs over {len(per_prog)} programmes")
     print("aimed-at classes (the real gold labels come from the annotators):", dict(per_cls))
     print("scenarios:", dict(per_scen))

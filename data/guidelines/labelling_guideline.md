@@ -98,6 +98,23 @@ certificate for a waiver), label `E` and write `conditional: <the condition>` in
 labelled. Only if the call makes a document an eligibility condition is it `manual_check`.
 A document that is missing from the profile never changes the label.
 
+**Clarifications from the challenge-set adjudication (2026-11-24).**
+- *Credits and duration:* one year of full-time study is 60 ECTS (the ECTS definition). A 4-year
+  bachelor's is 240 ECTS and meets "180 ECTS"; a 2-year B.Sc. is 120 ECTS and fails it. A 2-year
+  B.Sc. plus 2-year M.Sc. counts as one 3-year degree only if the call says so; otherwise `II`.
+- *Track:* the student applies for the next degree above their highest completed degree, so a
+  master's holder is on the doctoral track.
+- *Public facts:* a fact anyone can check that the call refers to without listing it (for example
+  whether Pakistan has diplomatic relations with Japan) is used; do not label it `II`.
+- *Type of experience:* if the call needs a particular kind of work (for example teaching) and the
+  profile gives only months of work, label `II`.
+- *Where a degree was taken:* the degree's country in the profile counts. An exemption for degrees
+  taught in English in listed countries fails for a degree taken in Pakistan.
+- *Explicit wording wins:* "applicants who already hold a degree" excludes final-year students
+  (`NE`); a call that is silent on final-year students gives `II` for an unfinished degree.
+- *Rank or class position* (for example "top 10% of the class") is an eligibility condition; if
+  the profile does not give it, `II`.
+
 **Missing profile information.** If the call states a requirement and the profile does not
 give the value (no grade, no nationality, no dates for work experience), label `II`.
 

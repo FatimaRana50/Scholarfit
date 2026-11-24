@@ -59,3 +59,21 @@ chal057,sh-cs-1530,test,clean,E,meets every stated requirement
 chal058,em-jemaro,test,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
 chal059,em-jemaro,test,final_year,NE,"final-year student, graduation expected before the programme starts"
 chal060,sh-cs-ukraine,dev,final_year,NE,"final-year student, graduation expected before the programme starts"
+chal061,sh-cs-2720,test,pct_above,E,percentage grade just above the stated minimum
+chal062,sh-cs-2720,test,clean,E,meets every stated requirement
+chal063,sh-cs-2720,test,emi_waiver,E,"no English test, English-medium certificate, programme states a waiver"
+chal064,mext-research-guidelines,test,age_edge_ok,E,exactly at the age limit on the reference date
+chal065,sh-cse-budapest,test,alevels,E,A-levels instead of F.Sc.
+chal066,sh-cse-budapest,test,emi_waiver,E,"no English test, English-medium certificate, programme states a waiver"
+chal067,mext-research-guidelines,test,clean,E,meets every stated requirement
+chal068,sh-cse-budapest,test,pct_above,E,percentage grade just above the stated minimum
+chal069,sh-cs-2720,test,alevels,E,A-levels instead of F.Sc.
+chal070,mext-research-guidelines,test,two_plus_two,E,alternative qualification: 2-year B.Sc. plus 2-year M.Sc. (16 years)
+chal071,sh-cse-budapest,test,final_year,E,"final-year student, graduation expected before the programme starts"
+chal072,sh-cs-2720,test,final_year,E,"final-year student, graduation expected before the programme starts"
+chal073,sh-cse-ppke,test,alevels,E,A-levels instead of F.Sc.
+chal074,mext-research-guidelines,test,alevels,E,A-levels instead of F.Sc.
+chal075,sh-cse-budapest,test,clean,E,meets every stated requirement
+chal076,em-bdma,test,clean,E,meets every stated requirement
+chal077,em-bdma,test,alevels,E,A-levels instead of F.Sc.
+chal078,sh-cse-ppke,test,clean,E,meets every stated requirement
