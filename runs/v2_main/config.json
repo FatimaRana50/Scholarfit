@@ -1,0 +1,27 @@
+{
+ "name": "v2_main",
+ "systems": [
+  "S1",
+  "S2"
+ ],
+ "models": [
+  "gemini-flash-lite",
+  "gpt-oss-20b"
+ ],
+ "runs": 1,
+ "split": "test",
+ "limit": null,
+ "context": "retrieved",
+ "temperature": 0.0,
+ "oracle": false,
+ "today": null,
+ "no_cache": false,
+ "stop_on_quota": 5,
+ "pairs": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\labels\\pairs.csv",
+ "programmes": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\programmes\\programmes.jsonl",
+ "profiles": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\profiles\\synthetic",
+ "gold_criteria": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\labels\\criteria_gold.jsonl",
+ "git_commit": "a957afa",
+ "started": "Fri Nov 27 00:42:16 2026",
+ "n_pairs": 109
+}

@@ -1,0 +1,27 @@
+{
+ "name": "v2_chal",
+ "systems": [
+  "S1",
+  "S2"
+ ],
+ "models": [
+  "gemini-flash-lite",
+  "gpt-oss-20b"
+ ],
+ "runs": 1,
+ "split": "test",
+ "limit": null,
+ "context": "retrieved",
+ "temperature": 0.0,
+ "oracle": false,
+ "today": null,
+ "no_cache": false,
+ "stop_on_quota": 5,
+ "pairs": "data/labels/challenge_pairs.csv",
+ "programmes": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\programmes\\programmes.jsonl",
+ "profiles": "data/profiles/challenge",
+ "gold_criteria": "C:\\Users\\eshaa\\OneDrive\\Desktop\\scholarfit\\data\\labels\\criteria_gold.jsonl",
+ "git_commit": "a957afa",
+ "started": "Fri Nov 27 00:37:54 2026",
+ "n_pairs": 78
+}
