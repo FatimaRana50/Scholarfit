@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
               <strong>ScholarFit advises only.</strong>
               The official programme page is always authoritative.
             </div>
+            <a href="/curator" className="staff-link">Staff: curator sign-in</a>
           </aside>
           <main className="content">{children}</main>
         </div>
