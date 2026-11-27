@@ -16,3 +16,5 @@ data/profiles/real/
 data/scholarfit_gptoss.db
 # original full-size images (the resized copies live in frontend/public/destinations)
 frontend/destinations/
+
+*.bak
