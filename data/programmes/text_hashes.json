@@ -1,0 +1,170 @@
+{
+ "mext-research-guidelines": {
+  "hash": "ceed472a687406bf73092a96fc5bba64606448c2c20e4495a5bd0d4de6b5d0a5",
+  "snapshot_date": "2026-11-21"
+ },
+ "mext-teachers": {
+  "hash": "1c698f8236cf55d26eb0316dbf9b5c080aa964602c101b68c8346f7b920f8915",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-cs-1530": {
+  "hash": "370cc8f2e69a8a98dff95f672c1762e34e516fac30b189ea297bccaa3774293b",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-cs-2720": {
+  "hash": "85b278e39c6ca6b7ea5bdab27b59ded557ecd9750cebc603ff224f027e13f072",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-cs-elte": {
+  "hash": "acbefb69c264d0f6010abe5c2d2c2aa17dbee0f06a91fced12bc504aa801aa34",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-cs-ukraine": {
+  "hash": "7a6ac561d129122fee92562cc952cb6ab5b4633060ca40396e17d83136b5c29b",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-cse-budapest": {
+  "hash": "69c3ff14dc4810c4254130506886aefec451128a685024788fab62c212bdb9b2",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-cse-ppke": {
+  "hash": "96db709cd99d73bb00ac187f52a7af1386d2956f9aa8181cf041218a1b1e6634",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-emai": {
+  "hash": "63b7ac5ebec9d115a8dfc8301cb23db5c9e3c456343ae47a4c456858ff79ea6a",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-cyberus": {
+  "hash": "7bf74f59904a99e347acc8ec853db814c44f85358347f6d739c7431c587c78c8",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-cybersure": {
+  "hash": "33c809ff6b415cdd5d7eb302ba849df575f3bd69891b4b491bef01d9addd3057",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-bdma": {
+  "hash": "4c8145a79089c1e509e01f968462631e7e3d9b94692c9bc583fa3b3d8986d524",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-cosi": {
+  "hash": "39e00f4e0b2b18581c2f5addd70c745956265d351cecfac4d4922e269f63acad",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-ifros": {
+  "hash": "babb248904fb19a0351bfcaf46ffb3d5b962a3b3409f05be9d8634ee2bb0b720",
+  "snapshot_date": "2026-11-21"
+ },
+ "em-jemaro": {
+  "hash": "002d664f3c6f45f38fd1947c2ca9411ac1eaa190414fa158358efa513f382b1b",
+  "snapshot_date": "2026-11-21"
+ },
+ "daad-epos": {
+  "hash": "88ece938475f68d77e22a906dc24dbc4215f71e6860ba42d1f25bc2e175676b4",
+  "snapshot_date": "2026-11-21"
+ },
+ "daad-epos-faq": {
+  "hash": "564cc2101a9cdea5cedf30fc44ed19a3851c1d3c25db8d27fcd3337f01462930",
+  "snapshot_date": "2026-11-21"
+ },
+ "daad-epos-flensburg-sedev": {
+  "hash": "c535736153842196755618c1be31ae57da918ab581b90d908c08ce7faca42b7d",
+  "snapshot_date": "2026-11-21"
+ },
+ "daad-epos-freiburg-meg": {
+  "hash": "62b40ceae79dc1c8134436a368443083d468e63e9d342bf2ddc31be0b9104fa2",
+  "snapshot_date": "2026-11-21"
+ },
+ "daad-epos-goettingen": {
+  "hash": "a031c52752d45e7553916d33f4f550b540d7e13568e330bfe5d3c83898fd222e",
+  "snapshot_date": "2026-11-21"
+ },
+ "csc-masters": {
+  "hash": "b9efce526d9bdc5941fa4f2c7a8646820cab416f53e93ce86a7dfd61767abac5",
+  "snapshot_date": "2026-11-21"
+ },
+ "csc-shared": {
+  "hash": "529070c1662eb73a5bbf0451f0ecf28a1f657f63604d2d49f636d3f3125de53d",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-oss3": {
+  "hash": "ced36486a62cec2bab0c809941c23ba3be506e8ddc0e17fd544d1096545092d1",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-oss3-faq": {
+  "hash": "148267b14110f9f5c2433feae441ee4faa2a483f92325d7bf0bd8d1c03c9dbbe",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-commonwealth": {
+  "hash": "3c7b56cf4694b7bfc0aece9448c728a0f3a88b2774e615309fa8222b46be0392",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-cwgs": {
+  "hash": "8f368624d0feca23708dadb284dd2ec863cf168e68e94bfc38934aec1db2cd0c",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-hungary": {
+  "hash": "0e2006fef0404b9371e311adf23aa6761cc5a4853a24d64236dbf4f55c087a7a",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-china": {
+  "hash": "ab8e3d8f446208739ab0ad694a72645378a981297246259098951856a2fbfdac",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-azs": {
+  "hash": "b3ea8df77555f3387d1a67cdac0c8d95bb0b8aca34f28fb981f67d0742dc320e",
+  "snapshot_date": "2026-11-21"
+ },
+ "hec-asdis": {
+  "hash": "8a5ccb8928b8eb08b1895b04dfca0d9bb91172ba2dbeb5f49dc013da17eebfce",
+  "snapshot_date": "2026-11-21"
+ },
+ "cgs-2026-requirements": {
+  "hash": "1260c474e3f7188f69a5eb5b1713de018bb6d9959b9faf7295308d9437e5c343",
+  "snapshot_date": "2026-11-21"
+ },
+ "chevening-eligibility": {
+  "hash": "cca94c987b11afd3daf8cdfb096d41e943c422484cc60998d5c9f75222f793a1",
+  "snapshot_date": "2026-11-21"
+ },
+ "chevening-work": {
+  "hash": "dd890a7260254a347ec41ff45c786e5f130f52c174ea410f9210032edae751fc",
+  "snapshot_date": "2026-11-21"
+ },
+ "fulbright-degree": {
+  "hash": "ad00950536658f27b227f03c54aa308b1aea2ab135b0d37ecd1d63e223a79c98",
+  "snapshot_date": "2026-11-21"
+ },
+ "fulbright-faq": {
+  "hash": "12ffc45ce30ad5a5b7ee7d87141d632263e12aaab29a853971fdcc3759f4ea0d",
+  "snapshot_date": "2026-11-21"
+ },
+ "tb-criteria": {
+  "hash": "291fad202d22eb54bb6dfd3d0a7eb02143d0087aecea51c21dd5f4bf76d7052c",
+  "snapshot_date": "2026-11-21"
+ },
+ "gks-overview": {
+  "hash": "ea11ac159ba92a88bd0d6ff1aa2e8b5d7021c48c6fe377c27d31916a42727dde",
+  "snapshot_date": "2026-11-21"
+ },
+ "gks-g-2026": {
+  "hash": "d397dd4771998375a2ff41aff83ffbe26f19112a46587093da951987a7548dc2",
+  "snapshot_date": "2026-11-21"
+ },
+ "gks-korea-univ": {
+  "hash": "b67b78fc388ec4d217891304d77096ea138d185711577e7ec045d2fa0491daba",
+  "snapshot_date": "2026-11-21"
+ },
+ "sh-call": {
+  "hash": "69210038fe3d6b475b7f8ada4def0724cc04f755b5d3bed24eec222bf4726821",
+  "snapshot_date": "2026-11-21"
+ },
+ "od-misis": {
+  "hash": "532ce22a5f3c8645fa2e24740539c7e4e8de6dedd533d384b0fa3bdb01d61c54",
+  "snapshot_date": "2026-11-21"
+ },
+ "od-mipt": {
+  "hash": "5db7993b42d7432a9c1bc76f8427d1f3d327e4419ef6e744f4f5325eb6867686",
+  "snapshot_date": "2026-11-21"
+ }
+}
