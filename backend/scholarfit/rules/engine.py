@@ -290,7 +290,7 @@ def missing_requirements(result: EligibilityResult, criteria: list[Criterion]) -
     todo = []
     for v in result.criteria:
         c = by_id.get(v.criterion_id)
-        what = (c.text if c and c.text else v.type.value.replace("_", " "))
+        what = (c.text if c and c.text else v.type.value.replace("_", " ")).rstrip(" .")
         if v.label == Label.NOT_ELIGIBLE:
             kind, action = "not_met", f"Not met: {what}. {v.reason}"
         elif v.label == Label.INSUFFICIENT:
@@ -302,6 +302,7 @@ def missing_requirements(result: EligibilityResult, criteria: list[Criterion]) -
             action = v.reason if v.type in (CriterionType.DOCUMENT, CriterionType.ADMISSION) else f"Checked by a person: {what}."
         else:
             continue
-        todo.append({"kind": kind, "type": v.type.value, "action": action, "evidence": v.citation})
+        todo.append({"kind": kind, "type": v.type.value, "action": action, "evidence": v.citation,
+                     "criterion_id": v.criterion_id})
     order = {"not_met": 0, "missing_info": 1, "condition": 2, "document": 3, "manual": 4}
     return sorted(todo, key=lambda t: order[t["kind"]])
