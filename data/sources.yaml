@@ -1,3 +1,6 @@
+# `funding: full|partial|tuition` (family or programme) feeds the ranking in backend/scholarfit/ranking.py;
+# set it only where the call states it. Missing = unknown (0.5).
+#
 # Programme sources for the dated snapshot (53 pages across 12 families, collected 2026-11-21).
 #
 # BEFORE CRAWLING (supervisor point 8): open each family's site, read its terms of use and
@@ -19,7 +22,7 @@ families:
       - {id: em-emai, name: "Erasmus Mundus Joint Master in Artificial Intelligence (EMAI)", url: "https://www.fri.uni-lj.si/en/node/22492"}
       - {id: em-cyberus, name: "Erasmus Mundus Joint Master in Cybersecurity (CYBERUS)", url: "https://www.uni.lu/fstm-en/?p=1548"}
       - {id: em-neurodata, name: "Erasmus Mundus Joint Master in Brain and Data Science (NeuroData)", url: "https://www.jyu.fi/en/study-with-us/erasmus-mundus-joint-masters-degree-programme-in-brain-and-data-science-master-of-arts-2-yrs-2026"}
-      - {id: em-cybersure, name: "Erasmus Mundus Master in Cybersecurity and Assurance (CYBERSURE)", url: "https://cybersure-master.eu/admission/requirements"}
+      - {id: em-cybersure, name: "Erasmus Mundus Master in Cybersecurity and Assurance (CYBERSURE)", url: "https://cybersure-master.eu/admission/requirements", funding: full}  # call: full and partial scholarships offered
       - {id: em-bdma, name: "Erasmus Mundus Joint Master in Big Data Management and Analytics (BDMA)", url: "https://bdma.ulb.ac.be/home/students/bdma-expected-profiles-pre-requisites/"}
       - {id: em-cosi, name: "Erasmus Mundus Joint Master in Colour Science (COSI)", url: "https://masteres.ugr.es/cosi/students/admission"}
       - {id: em-ifros, name: "Erasmus Mundus Joint Master in Intelligent Field Robotic Systems (IFRoS)", url: "https://inf.elte.hu/en/node/230070"}
@@ -27,6 +30,7 @@ families:
 
   daad:
     terms_checked: "2026-11-21, FF: website unavailable during check; terms and robots.txt could not be verified"
+    funding: full   # ranking (F5); EPOS call lists monthly allowance, rent subsidy, travel
     programmes:
       - {id: daad-epos, name: "DAAD Development-Related Postgraduate Courses (EPOS) - call", url: "https://www.daad.de/go/en/stipa50076777"}
       - {id: daad-epos-faq, name: "DAAD EPOS - FAQ (requirements)", url: "https://static.daad.de/media/daad_de/pdfs_nicht_barrierefrei/in-deutschland-studieren-forschen-lehren/epos_faq_en.pdf"}
@@ -38,6 +42,7 @@ families:
 
   commonwealth:
     terms_checked: "2026-11-21, FS: copyright notice found; terms not verified; robots.txt has blank Disallow"
+    funding: full   # ranking (F5); CSC pages: fully funded
     programmes:
       - {id: csc-masters, name: "Commonwealth Master's Scholarships", url: "https://cscuk.fcdo.gov.uk/scholarships/commonwealth-masters-scholarships/"}
       - {id: csc-shared, name: "Commonwealth Shared Scholarships", url: "https://cscuk.fcdo.gov.uk/?p=23761"}
@@ -45,8 +50,8 @@ families:
   hec:
     terms_checked: "2026-11-21, EM: robots.txt returned 404; crawling rules could not be verified; terms not verified"
     programmes:
-      - {id: hec-oss3, name: "HEC Overseas Scholarship for MS/MPhil leading to PhD (Phase-III)", url: "https://hec.gov.pk/english/scholarshipsgrants/OSSPhase-III"}
-      - {id: hec-oss3-faq, name: "HEC Overseas Scholarship Phase-III - FAQs", url: "https://www.hec.gov.pk/english/scholarshipsgrants/OSSPhase-III/Pages/FAQs.aspx"}
+      - {id: hec-oss3, name: "HEC Overseas Scholarship for MS/MPhil leading to PhD (Phase-III)", url: "https://hec.gov.pk/english/scholarshipsgrants/OSSPhase-III", funding: full}  # OSS FAQ: fully funded
+      - {id: hec-oss3-faq, name: "HEC Overseas Scholarship Phase-III - FAQs", url: "https://www.hec.gov.pk/english/scholarshipsgrants/OSSPhase-III/Pages/FAQs.aspx", funding: full}  # OSS FAQ: fully funded
       - {id: hec-commonwealth, name: "HEC nomination for Commonwealth Scholarships", url: "https://www.hec.gov.pk/english/HECAnnouncements/Pages/CW-Scholarship.aspx"}
       - {id: hec-cwgs, name: "HEC Commonwealth General Scholarships - eligibility", url: "https://www.hec.gov.pk/english/scholarshipsgrants/lao/cwgs/Pages/Eligibility-Criteria.aspx"}
       - {id: hec-hungary, name: "HEC Stipendium Hungaricum nomination - eligibility", url: "https://www.hec.gov.pk/english/scholarshipsgrants/lao/shsp/Pages/Eligibility-Criteria.aspx"}
@@ -69,6 +74,7 @@ families:
 
   fulbright:
     terms_checked: "2026-11-21, EM: robots.txt returned HTTP 404; crawling rules could not be verified; terms not verified"
+    funding: full   # ranking (F5); USEFP pages: fully funded
     programmes:
       - {id: fulbright-degree, name: "Fulbright Degree Program (USEFP Pakistan)", url: "https://usefp.org/scholarships/fulbright-degree.cfm"}
       - {id: fulbright-faq, name: "Fulbright Degree Program - FAQs (USEFP)", url: "https://usefp.org/SCHOLARSHIPS/fulbright-degree-FAQ.cfm"}
@@ -89,6 +95,7 @@ families:
 
   gks_korea:
     terms_checked: "2026-11-21, EM: robots.txt returned HTTP 403 Forbidden; crawling rules could not be verified; terms not verified"
+    funding: full   # ranking (F5); GKS guidelines: airfare, monthly allowance, tuition
     programmes:
       - {id: gks-overview, name: "Global Korea Scholarship - overview (Study in Korea)", url: "https://www.studyinkorea.go.kr/ko/plan/scholarship.do"}
       - {id: gks-g-2026, name: "2026 GKS Application Guidelines for Graduate Degrees", url: "https://www.esteri.it/wp-content/uploads/2026/02/2026-GKS-G-Application-Guidelines-English.pdf"}
@@ -97,6 +104,7 @@ families:
 
   stipendium_hungaricum:
     terms_checked: "2026-11-21, FF: robots.txt disallows /wp-admin/ only; public pages not disallowed; terms not verified"
+    funding: full   # ranking (F5); SH call 1.3: tuition-free education, monthly stipend, housing
     programmes:
       - {id: sh-call, name: "Stipendium Hungaricum - Call for Applications (BA/MA/OTM)", url: "https://stipendiumhungaricum.hu/documents/stipendium_hungaricum/Call/BA_MA_OTM_Call_for_Applications.pdf"}
       - {id: sh-cse-ppke, name: "Stipendium Hungaricum - MSc Computer Science Engineering (PPKE)", url: "https://apply.stipendiumhungaricum.hu/courses/course/3590-msc-computer-science-engineering"}
@@ -108,6 +116,7 @@ families:
 
   open_doors:
     terms_checked: "2026-11-21, FS: robots.txt restricts specified paths and URL parameters; no blanket crawling prohibition; terms not verified"
+    funding: partial   # ranking (F5); MIPT/MISIS: free tuition; MISIS adds an allowance subject to academic standing
     programmes:
       - {id: od-misis, name: "Open Doors: Russian Scholarship Project - NUST MISIS", url: "https://en.misis.ru/applicants/scholarships/opendoors/"}
       - {id: od-itmo, name: "Open Doors: Russian Scholarship Project - ITMO", url: "https://int.itmo.ru/en/opendoors"}
